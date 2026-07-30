@@ -92,7 +92,7 @@ or its mirror layout changes, update the two env vars here.
 
 Everything lives at `/opt/deliveroo-fee-risk`, cloned via the read-only deploy key
 `/root/.ssh/id_ed25519_deliveroo-fee-risk` (`Host github-deliveroo-fee-risk` in
-`/root/.ssh/config`) from the private repo `sessions-data/deliveroo-fee-risk`.
+`/root/.ssh/config`) from the private repo `tristansessions/deliveroo-fee-risk`.
 
 ```bash
 # routine redeploy

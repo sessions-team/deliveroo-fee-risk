@@ -10,7 +10,8 @@ Express-wrapper-around-a-pipeline shape; its auth/PM2/deploy patterns are copied
 
 **Values:** APP_NAME `deliveroo-fee-risk` · display name "Deliveroo Fee Risk Analysis" ·
 SUBDOMAIN `feerisk` → http://feerisk.34.13.22.38.nip.io/ · PORT **8085** (verified free) ·
-repo `sessions-data/deliveroo-fee-risk` (private, to be created) ·
+repo `tristansessions/deliveroo-fee-risk` (private — Tristan's account, same as
+Platform-weekly-dashboard; decision 2026-07-30, supersedes the brief's `sessions-data` org) ·
 OAuth client "Sessions Deliveroo Fee Risk Analysis" in `sessions-core-data` ·
 redirect URI `http://feerisk.34.13.22.38.nip.io/auth/callback` ·
 origin `http://feerisk.34.13.22.38.nip.io`.
@@ -72,8 +73,9 @@ forward-slash args (its default param paths are Windows `\`).
       HTML; 317 sites at risk £45,941/qtr matches previous run); all routes 200; bad CSV
       rejected with header message; real CSV upload installed + auto-triggered full refresh;
       double-refresh → 409; UI status bar verified in browser.
-- [ ] **A10. Commit this file as `DEPLOY_PLAN.md`; push** to `sessions-data/deliveroo-fee-risk`
-      once the repo exists. **⏸ Paula creates the private repo first.**
+- [ ] **A10. Commit this file as `DEPLOY_PLAN.md`; push** to `tristansessions/deliveroo-fee-risk`
+      once the repo exists. **⏸ Tristan creates the private repo** (github.com/new — Paula no
+      longer needed for GitHub steps; deploy key goes into the repo's own Settings → Deploy keys).
 
 ## Phase B — deploy on the VM
 
