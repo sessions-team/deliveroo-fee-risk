@@ -73,9 +73,9 @@ forward-slash args (its default param paths are Windows `\`).
       HTML; 317 sites at risk £45,941/qtr matches previous run); all routes 200; bad CSV
       rejected with header message; real CSV upload installed + auto-triggered full refresh;
       double-refresh → 409; UI status bar verified in browser.
-- [ ] **A10. Commit this file as `DEPLOY_PLAN.md`; push** to `tristansessions/deliveroo-fee-risk`
-      once the repo exists. **⏸ Tristan creates the private repo** (github.com/new — Paula no
-      longer needed for GitHub steps; deploy key goes into the repo's own Settings → Deploy keys).
+- [x] **A10. Pushed** to `tristansessions/deliveroo-fee-risk` (private, created by Tristan
+      2026-07-30; 6 commits on `main`). Paula no longer needed for GitHub steps; the deploy key
+      (B2) goes into the repo's own Settings → Deploy keys.
 
 ## Phase B — deploy on the VM
 
