@@ -1,0 +1,20 @@
+{
+  "name": "deliveroo-fee-risk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deliveroo Fee Risk Analysis — rate tracker + PfP fee-increase early warning (Sessions internal)",
+  "scripts": {
+    "start": "node server/index.js",
+    "refresh": "node scripts/run_refresh.js",
+    "refresh:full": "node scripts/run_refresh.js --full"
+  },
+  "dependencies": {
+    "@google-cloud/bigquery": "^7.9.0",
+    "busboy": "^1.6.0",
+    "cookie-session": "^2.1.1",
+    "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "node-cron": "^3.0.3"
+  }
+}

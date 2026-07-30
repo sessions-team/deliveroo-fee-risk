@@ -1,0 +1,17 @@
+# secrets / per-machine config — VM-only, never in git
+.env
+.env.*
+!.env.example
+allowed-emails.json
+*.bak.*
+
+# dependencies
+node_modules/
+
+# generated (fully rebuildable from 01_contract/02_menu-rates/03_source-data/reference)
+04_analysis/
+05_reports/
+
+# runtime artefacts
+logs/
+uploads/
