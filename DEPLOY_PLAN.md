@@ -79,11 +79,12 @@ forward-slash args (its default param paths are Windows `\`).
 
 ## Phase B — deploy on the VM
 
-- [ ] **B1. PowerShell 7** — install `pwsh` via the Microsoft apt repo (system package install;
-      the only new system prerequisite). Verify `pwsh -v`.
-- [ ] **B2. Deploy key** — back up `/root/.ssh/config` as `config.bak.pre-deliveroo-fee-risk.<ts>`;
-      generate `/root/.ssh/id_ed25519_deliveroo-fee-risk` + `Host github-deliveroo-fee-risk`
-      alias; print public key. **⏸ Paula adds it to the repo (read-only) before B3.**
+- [x] **B1. PowerShell 7.6.4** installed 2026-07-30 via the Microsoft apt repo (Debian 12
+      bookworm — NOT Ubuntu as the brief assumed; `packages-microsoft-prod.deb` for debian/12).
+- [x] **B2. Deploy key** generated 2026-07-30 (`/root/.ssh/id_ed25519_deliveroo-fee-risk`,
+      `Host github-deliveroo-fee-risk` alias added; config backup
+      `config.bak.pre-deliveroo-fee-risk.<ts>`). **⏸ Tristan adds the public key to
+      repo Settings → Deploy keys (read-only) before B3.**
 - [ ] **B3. Clone** to `/opt/deliveroo-fee-risk`; `npm install --omit=dev`.
 - [ ] **B4. VM-only files** (values never printed): `.env` chmod 600 (`SESSION_SECRET` generated
       on the VM; `PLATFORM_KPI_DIR=/opt/weekly-platform-kpi`;
