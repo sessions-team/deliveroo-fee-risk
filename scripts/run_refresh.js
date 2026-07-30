@@ -123,7 +123,9 @@ try {
     const ps = pwshBin();
     if (!ps) throw fail('error', 'PowerShell (pwsh) is not installed — cannot run the contract validator.', 'validate');
     out(`validator: ${ps}  input: ${path.basename(input)}\n`);
-    const v = runCmd(ps, ['-NoProfile', '-File', path.join(__dirname, 'Validate-Q3ExistingSites.ps1'),
+    // -ExecutionPolicy Bypass is process-scoped: Windows PowerShell blocks -File otherwise;
+    // pwsh on Linux accepts and ignores it.
+    const v = runCmd(ps, ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(__dirname, 'Validate-Q3ExistingSites.ps1'),
       '-InputCsv', input,
       '-NameMapCsv', path.join(SOURCE, 'Q2_existing-sites_commission_output_2026-04-08.csv'),
       '-HubMapCsv', path.join(ROOT, 'reference', 'deliveroo_id_name_map.csv'),

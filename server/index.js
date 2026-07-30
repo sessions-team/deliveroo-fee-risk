@@ -98,22 +98,26 @@ app.post('/api/upload', (req, res) => {
 
   const bb = Busboy({ headers: req.headers, limits: { fileSize: 25 * 1024 * 1024, files: 2, fields: 5 } });
   const fields = {};
-  const saved = {}; // { commission: tmpPath, ratecard: tmpPath }
+  const saved = {}; // { commission_csv: tmpPath, rate_card: tmpPath }
+  const writes = []; // busboy's 'close' fires when PARSING ends — the write streams may still be flushing
   const stamp = new Date().toISOString().slice(0, 10);
   let failed = null;
 
   bb.on('field', (name, val) => { fields[name] = String(val); });
   bb.on('file', (name, file, info) => {
-    if (name !== 'commission_csv' && name !== 'rate_card') { file.resume(); return; }
-    const safe = path.basename(info.filename || name).replace(/[^\w.\- ]+/g, '_');
+    // browsers send empty file inputs as zero-byte parts with no filename — skip those too
+    if ((name !== 'commission_csv' && name !== 'rate_card') || !info.filename) { file.resume(); return; }
+    const safe = path.basename(info.filename).replace(/[^\w.\- ]+/g, '_');
     const tmp = path.join(UPLOADS, `${new Date().toISOString().replace(/[:.]/g, '-')}_${safe}`);
     const ws = fs.createWriteStream(tmp);
     file.pipe(ws);
     file.on('limit', () => { failed = 'file too large (25 MB limit)'; ws.destroy(); try { fs.unlinkSync(tmp); } catch { } });
-    ws.on('close', () => { if (!failed) saved[name] = tmp; });
+    writes.push(new Promise(resolve => ws.on('close', () => { if (!failed) saved[name] = tmp; resolve(); })
+      .on('error', () => { failed = failed || 'could not store the upload'; resolve(); })));
   });
-  bb.on('close', () => {
+  bb.on('close', async () => {
     try {
+      await Promise.all(writes);
       if (failed) return res.status(400).json({ error: failed });
       const quarter = /^Q[1-4]$/.test(fields.quarter || '') ? fields.quarter : 'Q3';
       const year = new Date().getFullYear();
