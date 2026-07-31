@@ -115,9 +115,11 @@ forward-slash args (its default param paths are Windows `\`).
       `SESSIONS_FINANCE_DRIVE=/opt/weekly-platform-kpi/drive-mirror`; OAuth pair added at C1 —
       auth stays OFF until then, safe because the server binds 127.0.0.1 and has no Caddy route
       yet), `allowed-emails.json` chmod 600 (two-tier, both tiers seeded paula@ + tristan@).
-- [ ] **B5. First full pipeline run** — `npm run refresh:full` on the VM: proves pwsh validator,
-      statements via the weekly-kpi mirror, BigQuery ADC, HTML build. Check
-      `Q3_existing-sites_UNNAMED.csv` empty and at-risk numbers match local.
+- [x] **B5. First full pipeline run** 2026-07-31 — `npm run refresh:full` DONE ok in 27.5s: pwsh
+      validator (16,290 rows / 1,810 restaurants, names fully resolved), statements via the
+      weekly-kpi mirror (4 Q3 weeks, 11 rate exceptions — matches local), BigQuery ADC (1,048
+      sites; 330 at risk £48,000/qtr vs local 317/£45,941 — one extra day of quarter-to-date
+      data, expected drift), HTML built. `UNNAMED.csv` = 0 bytes; `status.json` result "ok".
 - [ ] **B6. `pm2 start ecosystem.config.js && pm2 save`**; `curl -s 127.0.0.1:8085` check;
       confirm 127.0.0.1-only bind.
 
