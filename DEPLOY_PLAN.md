@@ -38,6 +38,27 @@ forward-slash args (its default param paths are Windows `\`).
 
 ---
 
+## Execution rules (Tristan, 2026-07-31 — binding for every remaining step)
+
+1. Do exactly ONE numbered step at a time, in plan order (Phase A step 1, then A2, etc).
+   Never batch steps or jump ahead.
+2. After each step, run the verification relevant to that step and show the actual
+   command and its real output, then STOP and wait for Tristan to say "continue" before
+   the next step. If a step has no natural check, state exactly how to confirm it.
+3. Before touching anything shared (Caddyfile, mozart's dashboard.js, PM2), take the
+   backup using the plan's .bak convention and show the backup path BEFORE the change.
+4. Never print, echo back, or commit secrets (.env values, the SA key, allowed-emails.json).
+   If a step needs a secret not yet provided, stop and say precisely what is needed.
+5. At any step depending on a person or third party (Tristan adding the deploy key, Paula
+   creating the OAuth client), STOP and say exactly what must happen and what value to
+   hand back before continuing. No workarounds.
+6. If a check fails, stop and diagnose. Do not proceed or paper over it.
+7. Keep every change minimal and reversible; flag anything that isn't.
+8. After each completed step, tick it off in DEPLOY_PLAN.md so a later session can
+   resume cleanly.
+
+---
+
 ## Phase A — code changes (this repo, local) — DONE, committed locally (2 commits)
 
 - [x] **A1. `server/auth.js`** — Google OAuth middleware (own client), copied from
