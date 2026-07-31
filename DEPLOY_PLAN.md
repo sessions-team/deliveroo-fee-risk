@@ -120,8 +120,11 @@ forward-slash args (its default param paths are Windows `\`).
       weekly-kpi mirror (4 Q3 weeks, 11 rate exceptions — matches local), BigQuery ADC (1,048
       sites; 330 at risk £48,000/qtr vs local 317/£45,941 — one extra day of quarter-to-date
       data, expected drift), HTML built. `UNNAMED.csv` = 0 bytes; `status.json` result "ok".
-- [ ] **B6. `pm2 start ecosystem.config.js && pm2 save`**; `curl -s 127.0.0.1:8085` check;
-      confirm 127.0.0.1-only bind.
+- [x] **B6. PM2 started + saved** 2026-07-31 — id 4 `deliveroo-fee-risk` online under root PM2,
+      dump saved; `curl 127.0.0.1:8085` = HTTP 200 (wrapper page); bind confirmed
+      **127.0.0.1:8085 only**; all 4 existing root-PM2 apps untouched/online. Boot log: auth
+      disabled + scheduler disabled — both by design until the OAuth pair lands at C1
+      (scheduler is on-when-auth-is-on).
 
 ## Phase C — portal + OAuth
 
