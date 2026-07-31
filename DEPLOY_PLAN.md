@@ -106,11 +106,15 @@ forward-slash args (its default param paths are Windows `\`).
       `Host github-deliveroo-fee-risk` alias added; config backup
       `config.bak.pre-deliveroo-fee-risk.<ts>`). **⏸ Tristan adds the public key to
       repo Settings → Deploy keys (read-only) before B3.**
-- [ ] **B3. Clone** to `/opt/deliveroo-fee-risk`; `npm install --omit=dev`.
-- [ ] **B4. VM-only files** (values never printed): `.env` chmod 600 (`SESSION_SECRET` generated
-      on the VM; `PLATFORM_KPI_DIR=/opt/weekly-platform-kpi`;
-      `SESSIONS_FINANCE_DRIVE=/opt/weekly-platform-kpi/drive-mirror`; OAuth pair added at C1),
-      `allowed-emails.json` (two-tier, both tiers seeded paula@ + tristan@).
+- [x] **B3. Cloned** 2026-07-31 to `/opt/deliveroo-fee-risk` (@ e76f103, via the deploy-key
+      alias); `npm install --omit=dev` = 233 packages, 48M. NOTE: gcloud auth kept expiring
+      (Workspace reauth policy) — remaining VM access is direct
+      `ssh -i ~/.ssh/google_compute_engine Trist@34.13.22.38`, no gcloud dependency.
+- [x] **B4. VM-only files** created 2026-07-31 (values never printed): `.env` chmod 600
+      (`SESSION_SECRET` generated on the VM via openssl; `PLATFORM_KPI_DIR=/opt/weekly-platform-kpi`;
+      `SESSIONS_FINANCE_DRIVE=/opt/weekly-platform-kpi/drive-mirror`; OAuth pair added at C1 —
+      auth stays OFF until then, safe because the server binds 127.0.0.1 and has no Caddy route
+      yet), `allowed-emails.json` chmod 600 (two-tier, both tiers seeded paula@ + tristan@).
 - [ ] **B5. First full pipeline run** — `npm run refresh:full` on the VM: proves pwsh validator,
       statements via the weekly-kpi mirror, BigQuery ADC, HTML build. Check
       `Q3_existing-sites_UNNAMED.csv` empty and at-risk numbers match local.
