@@ -128,10 +128,12 @@ forward-slash args (its default param paths are Windows `\`).
 
 ## Phase C — portal + OAuth
 
-- [ ] **C1. ⏸ Paula creates OAuth client** "Sessions Deliveroo Fee Risk Analysis" in
-      `sessions-core-data`: origin `http://feerisk.34.13.22.38.nip.io`, redirect
-      `http://feerisk.34.13.22.38.nip.io/auth/callback`; sends Client ID + secret → VM `.env`;
-      pm2 restart.
+- [x] **C1. OAuth client live** 2026-07-31 — "Sessions Deliveroo Fee Risk Analysis" created;
+      ID + secret appended to VM `.env` (via stdin, chmod 600, never echoed) and app restarted.
+      Boot log: `Auth: ENABLED (callback http://feerisk.34.13.22.38.nip.io/auth/callback)` and
+      `Scheduled auto-refresh: "0 8 * * *" (Europe/London)`; local curl now 302 → sign-in
+      (was 200 open). NOTE: the secret transited this chat — if that's a concern, reset the
+      client secret in the console any time and update `.env` + restart.
 - [ ] **C2. Caddy block** (backup first): `http://feerisk.34.13.22.38.nip.io {
       reverse_proxy localhost:8085 }`; `caddy validate`; `systemctl reload caddy`; verify
       externally reachable (redirects to Google sign-in) and all 6 existing apps unaffected.
