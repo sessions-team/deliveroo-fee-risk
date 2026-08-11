@@ -134,9 +134,12 @@ forward-slash args (its default param paths are Windows `\`).
       `Scheduled auto-refresh: "0 8 * * *" (Europe/London)`; local curl now 302 → sign-in
       (was 200 open). NOTE: the secret transited this chat — if that's a concern, reset the
       client secret in the console any time and update `.env` + restart.
-- [ ] **C2. Caddy block** (backup first): `http://feerisk.34.13.22.38.nip.io {
-      reverse_proxy localhost:8085 }`; `caddy validate`; `systemctl reload caddy`; verify
-      externally reachable (redirects to Google sign-in) and all 6 existing apps unaffected.
+- [x] **C2. Caddy block live** 2026-08-11 (backup
+      `/etc/caddy/Caddyfile.bak.pre-feerisk.20260811-084948` taken first): appended
+      `http://feerisk.34.13.22.38.nip.io { reverse_proxy localhost:8085 }`; "Valid
+      configuration"; reloaded. External check: feerisk 302 → `/auth/login` (Google sign-in) ✓;
+      all 6 existing subdomains (portal/dash/map/onboarding/triage/platform) still 302/307 to
+      their own sign-ins — unaffected.
 - [ ] **C3. Portal tile** (backup `/opt/mozart/src/app/dashboard.js` first): add
       `{ name: "Deliveroo Fee Risk", url: "http://feerisk.34.13.22.38.nip.io/" }` to the
       **Finance** section; rebuild + restart mozart as `paulaestevezcons`; confirm tile in the
