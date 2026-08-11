@@ -140,10 +140,12 @@ forward-slash args (its default param paths are Windows `\`).
       configuration"; reloaded. External check: feerisk 302 → `/auth/login` (Google sign-in) ✓;
       all 6 existing subdomains (portal/dash/map/onboarding/triage/platform) still 302/307 to
       their own sign-ins — unaffected.
-- [ ] **C3. Portal tile** (backup `/opt/mozart/src/app/dashboard.js` first): add
-      `{ name: "Deliveroo Fee Risk", url: "http://feerisk.34.13.22.38.nip.io/" }` to the
-      **Finance** section; rebuild + restart mozart as `paulaestevezcons`; confirm tile in the
-      built chunk; portal + app both up.
+- [x] **C3. Portal tile live** 2026-08-11 (backup
+      `/opt/mozart/src/app/dashboard.js.bak.pre-feerisk.20260811-090818` taken first):
+      one-line insert `{ name: "Deliveroo Fee Risk", url: "http://feerisk.34.13.22.38.nip.io/" }`
+      in the **Finance** section (diff = 1 added line); mozart rebuilt + restarted as
+      `paulaestevezcons` (online, new pid); tile string confirmed in built chunk
+      `page-b1e4e677954b9153.js`; portal 302 (its own sign-in) + feerisk 302 → `/auth/login` ✓.
 - [ ] **C4. End-to-end auth test** (Tristan): tile opens the app, listed sign-in + tracker +
       `/risk` + Excel download work, non-listed email → 403, view-only demo optional.
 
