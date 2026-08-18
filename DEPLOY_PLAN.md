@@ -146,8 +146,11 @@ forward-slash args (its default param paths are Windows `\`).
       in the **Finance** section (diff = 1 added line); mozart rebuilt + restarted as
       `paulaestevezcons` (online, new pid); tile string confirmed in built chunk
       `page-b1e4e677954b9153.js`; portal 302 (its own sign-in) + feerisk 302 → `/auth/login` ✓.
-- [ ] **C4. End-to-end auth test** (Tristan): tile opens the app, listed sign-in + tracker +
-      `/risk` + Excel download work, non-listed email → 403, view-only demo optional.
+- [x] **C4. End-to-end auth test PASSED** (Tristan, 2026-08-11): portal tile opens the app;
+      listed sign-in loads the tracker with live status bar; Fee-risk page, Excel download and
+      /inputs all work — "everything works as the steps intend". Machine-side checks also
+      verified: /auth/login 302s to Google with the exact registered redirect_uri;
+      unauthenticated /api/* returns 401 JSON.
 
 ## Phase D — schedule + quarterly-inputs verification
 
