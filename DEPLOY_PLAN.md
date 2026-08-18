@@ -10,8 +10,8 @@ Express-wrapper-around-a-pipeline shape; its auth/PM2/deploy patterns are copied
 
 **Values:** APP_NAME `deliveroo-fee-risk` · display name "Deliveroo Fee Risk Analysis" ·
 SUBDOMAIN `feerisk` → http://feerisk.34.13.22.38.nip.io/ · PORT **8085** (verified free) ·
-repo `tristansessions/deliveroo-fee-risk` (private — Tristan's account, same as
-Platform-weekly-dashboard; decision 2026-07-30, supersedes the brief's `sessions-data` org) ·
+repo `sessions-team/deliveroo-fee-risk` (private — created under `tristansessions` 2026-07-30,
+transferred to the `sessions-team` org 2026-08-11 by Tristan; deploy key travelled with it) ·
 OAuth client "Sessions Deliveroo Fee Risk Analysis" in `sessions-core-data` ·
 redirect URI `http://feerisk.34.13.22.38.nip.io/auth/callback` ·
 origin `http://feerisk.34.13.22.38.nip.io`.
@@ -94,7 +94,7 @@ forward-slash args (its default param paths are Windows `\`).
       HTML; 317 sites at risk £45,941/qtr matches previous run); all routes 200; bad CSV
       rejected with header message; real CSV upload installed + auto-triggered full refresh;
       double-refresh → 409; UI status bar verified in browser.
-- [x] **A10. Pushed** to `tristansessions/deliveroo-fee-risk` (private, created by Tristan
+- [x] **A10. Pushed** to `sessions-team/deliveroo-fee-risk` (private, created by Tristan
       2026-07-30; 6 commits on `main`). Paula no longer needed for GitHub steps; the deploy key
       (B2) goes into the repo's own Settings → Deploy keys.
 
