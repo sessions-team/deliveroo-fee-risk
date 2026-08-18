@@ -71,9 +71,13 @@ Safety: single-run lock `logs/refresh.lock`, per-run log `logs/refresh-<ts>.log`
 
 `allowed-emails.json` (repo root, **gitignored**, VM-only; example committed). Two shapes:
 a plain JSON array (everyone listed may view AND refresh/upload), or two tiers —
-`{ "emails": [viewers], "refresh": [who may rebuild or upload] }`. Re-read on **every sign-in
-and every refresh/upload attempt** — case-insensitive exact match, no domain fallback.
-**Add a user = edit the file on the VM. No restart needed.**
+`{ "emails": [viewers], "refresh": [who may rebuild or upload] }`. Re-read on **every request**
+(the gate middleware) as well as at sign-in and on every refresh/upload attempt —
+case-insensitive exact match, no domain fallback. **Add or remove a user = edit the file on the
+VM. No restart needed, and no cookie to wait out:** a removed address loses access on its very
+next request — the session is cleared and they get a 403 (JSON for `/api/*`, a page elsewhere),
+never a redirect back through Google. If the file is unreadable the gate **fails closed** —
+everyone is denied and the error is logged — so fix a broken edit promptly.
 
 ```
 sudo nano /opt/deliveroo-fee-risk/allowed-emails.json

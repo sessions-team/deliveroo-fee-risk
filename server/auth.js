@@ -5,8 +5,9 @@
 //   - this app has its OWN Google OAuth 2.0 client ("Sessions Deliveroo Fee Risk Analysis"
 //     in sessions-core-data) — never reused from another app;
 //   - access is controlled by allowed-emails.json in the project root, RE-READ ON EVERY
-//     SIGN-IN (case-insensitive exact match, no domain fallback), gitignored — so adding
-//     a user is "edit the file", no restart;
+//     REQUEST (case-insensitive exact match, no domain fallback), gitignored — so adding a
+//     user is "edit the file", no restart, and REMOVING one takes effect on their next
+//     request rather than whenever their 30-day cookie happens to expire;
 //   - callback path is /auth/callback at the app's public base URL
 //     (http://feerisk.34.13.22.38.nip.io/auth/callback — register this exact URI on the client).
 //
@@ -137,13 +138,39 @@ function attach(app) {
     res.send(page('Signed out', 'You have been signed out. <a href="/auth/login">Sign in</a>.'));
   });
 
-  // ---- the gate: everything except /auth/* requires a session ----
+  // ---- the gate: everything except /auth/* needs a session that is STILL on the allow-list ----
+  // The list is re-read per request (a sync read of a sub-1KB local file — negligible at this
+  // app's request volume), so REMOVING an address revokes live sessions on their very next
+  // request instead of leaving the 30-day cookie working until it expires.
   app.use((req, res, next) => {
+    // never gate sign-in/out — a removed user must still be able to sign back in once re-added
     if (req.path.startsWith('/auth/')) return next();
-    if (req.session && req.session.user && req.session.user.email) return next();
-    // fetch()-style callers get a 401 they can detect; browsers get the login redirect
-    if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'unauthenticated' });
-    res.redirect('/auth/login?returnTo=' + encodeURIComponent(req.originalUrl || '/'));
+
+    const email = req.session && req.session.user && req.session.user.email;
+    if (!email) {
+      // fetch()-style callers get a 401 they can detect; browsers get the login redirect
+      if (req.path.startsWith('/api/')) return res.status(401).json({ error: 'unauthenticated' });
+      return res.redirect('/auth/login?returnTo=' + encodeURIComponent(req.originalUrl || '/'));
+    }
+
+    // Fail closed, like canRefresh(): an unreadable list denies everyone rather than admitting
+    // them. The session is left intact — the file is broken, the user isn't necessarily gone.
+    let allowed;
+    try {
+      allowed = readAcl().emails.has(email);
+    } catch (e) {
+      console.error(`auth: DENIED ${email} — cannot read allow-list ${EMAILS_FILE}: ${e.message}`);
+      return deny(req, res, 'access list unreadable',
+        'The access list could not be read, so access is denied. Ask Finance to check the server.');
+    }
+    if (!allowed) {
+      req.session = null; // drop the cookie now rather than letting it run to expiry
+      console.log(`auth: REVOKED ${email} (no longer on the allow-list)`);
+      return deny(req, res, 'no longer authorised',
+        `<b>${escapeHtml(email)}</b> is no longer on the access list for this tool.<br>` +
+        'Ask Finance to add you back, then <a href="/auth/login">sign in again</a> — no redeploy needed.');
+    }
+    next();
   });
 
   return {
@@ -157,6 +184,14 @@ function attach(app) {
       try { const acl = readAcl(); return (acl.refresh || acl.emails).has(email); } catch { return false; }
     },
   };
+}
+
+// Refuse a request whose session is authenticated but not (or no longer) authorised.
+// Deliberately NOT a redirect: bouncing a revoked user through Google would land them back
+// here and loop. /api/* gets JSON so fetch() callers can show the reason; the rest gets a page.
+function deny(req, res, jsonError, htmlBody) {
+  if (req.path.startsWith('/api/')) return res.status(403).json({ error: jsonError });
+  res.status(403).send(page('Not authorised', htmlBody));
 }
 
 // Only ever redirect to a local path (open-redirect guard): must start "/" but not "//".
