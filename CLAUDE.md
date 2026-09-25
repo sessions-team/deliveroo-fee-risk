@@ -110,10 +110,12 @@ pm2 logs deliveroo-fee-risk --lines 100
 tail -50 /opt/deliveroo-fee-risk/logs/refresh-*.log
 ```
 
-**One-off after pulling the 2026-09-25 layout change** (numbered `01_…05_` folders → the
-standard `data/` + `output/` layout): the generated dirs are untracked on the VM, so `git pull`
-leaves them behind and the site would 404 until the next refresh rebuilt them. Move them by hand
-before `pm2 restart`, plus anything uploaded via `/inputs` since the last commit:
+**One-off after pulling the 2026-09-25 layout change — already done on the VM (2026-09-25),
+kept for the record** (numbered `01_…05_` folders → the standard `data/` + `output/` layout):
+the generated dirs are untracked on the VM, so `git pull` leaves them behind and the site would
+404 until the next refresh rebuilt them. Move them by hand before `pm2 restart`, plus anything
+uploaded via `/inputs` since the last commit. Note the VM's `data/reference/deliveroo_id_name_map.csv`
+always shows as locally modified — `--full` refreshes regenerate it from BigQuery; keep the VM copy:
 
 ```bash
 cd /opt/deliveroo-fee-risk && mkdir -p output data/raw/commission-output data/raw/menu-rates
