@@ -14,8 +14,8 @@ Outputs:
 #>
 
 param(
-  [string]$InputCsv = "$PSScriptRoot\..\03_source-data\Q2_existing-sites_commission_output_2026-04-08.csv",
-  [string]$OutDir   = "$PSScriptRoot\..\04_analysis"
+  [string]$InputCsv = "$PSScriptRoot\..\data\raw\commission-output\Q2_existing-sites_commission_output_2026-04-08.csv",
+  [string]$OutDir   = "$PSScriptRoot\..\output\analysis"
 )
 
 $ErrorActionPreference = 'Stop'

@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const ExcelJS = require('C:\\Users\\Trist\\Documents\\Claude\\projects\\Platform-weekly-dashboard\\node_modules\\exceljs');
 
-const OUT = path.join(__dirname, '..', '04_analysis');
-const REPORTS = path.join(__dirname, '..', '05_reports');
+const OUT = path.join(__dirname, '..', 'output', 'analysis');
+const REPORTS = path.join(__dirname, '..', 'output', 'reports');
 const outFile = path.join(REPORTS, 'Deliveroo_Rate_Audit_2026-YTD.xlsx');
 
 function parseCSV(text){

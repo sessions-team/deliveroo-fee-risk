@@ -5,7 +5,7 @@
 // whether the candidate's AGREED adjustment equals the rate the menu is actually charged.
 const fs=require('fs'), path=require('path');
 const { discoverWeeks } = require('C:\\Users\\Trist\\Documents\\Claude\\projects\\Platform-weekly-dashboard\\scripts\\weeks.js');
-const OUT=path.join(__dirname,'..','04_analysis');
+const OUT=path.join(__dirname,'..','output', 'analysis');
 
 const BANDS=[[12,32.59],[14,31.59],[16,30.00],[18,28.78],[20,27.82],[22,27.04],[24,26.40],[26,25.86],[Infinity,25.62]];
 const headlineFor=v=>{for(const[m,r]of BANDS)if(v<m)return r;return 25.62;};
@@ -90,4 +90,4 @@ console.log('  HIGH confidence:',kept.filter(s=>s.confidence.startsWith('HIGH'))
             '| weak:',kept.filter(s=>s.confidence.startsWith('REVIEW')).length);
 console.log('\nTop suggestions:');
 kept.slice(0,20).forEach(s=>console.log('  ['+s.confidence+']\n      statement: "'+s.launched_menu+'"  (charged '+s.charged_adj+', GMV £'+s.gmv_4wk+')\n      existing : "'+s.suggested_existing_menu+'"  (agreed '+s.suggested_agreed_adj+', rate matches: '+s.rate_matches+')'));
-console.log('\nFull list -> 04_analysis/q2_name_suggestions.csv');
+console.log('\nFull list -> output/analysis/q2_name_suggestions.csv');

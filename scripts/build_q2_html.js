@@ -1,9 +1,9 @@
 // Build a self-contained interactive HTML dashboard for the Q2 rate tracker.
-// Reads 04_analysis/q2_dashboard_data.json (produced by build_q2_views.js). No external libs.
+// Reads output/analysis/q2_dashboard_data.json (produced by build_q2_views.js). No external libs.
 const fs = require('fs');
 const path = require('path');
-const OUT = path.join(__dirname, '..', '04_analysis');
-const REPORTS = path.join(__dirname, '..', '05_reports');
+const OUT = path.join(__dirname, '..', 'output', 'analysis');
+const REPORTS = path.join(__dirname, '..', 'output', 'reports');
 const data = JSON.parse(fs.readFileSync(path.join(OUT, 'q2_dashboard_data.json'), 'utf8'));
 
 const CSS = `

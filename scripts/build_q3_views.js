@@ -18,8 +18,8 @@ const PLATFORM_KPI_DIR = process.env.PLATFORM_KPI_DIR || 'C:/Users/Trist/Documen
 const { discoverWeeks } = require(path.join(PLATFORM_KPI_DIR, 'scripts', 'weeks.js'));
 const ExcelJS = require('exceljs');
 
-const OUT = path.join(__dirname, '..', '04_analysis');
-const REPORTS = path.join(__dirname, '..', '05_reports');
+const OUT = path.join(__dirname, '..', 'output', 'analysis');
+const REPORTS = path.join(__dirname, '..', 'output', 'reports');
 const Q3_START = '2026-07-01';
 const Q3_EFFECTIVE_FROM = '2026-07-14'; // 10th business day after Q2 end (30 Jun 2026); no UK bank holidays in window
 const ADJ_TOL = 0.05; // pts tolerance for "matches the Q3 update file"
@@ -53,9 +53,9 @@ const agreed={};
   const h=rows[0].map(x=>x.replace(/^﻿/,'')); const iS=h.indexOf('Site'),iA=h.indexOf('NetAdjustment'),iN=h.indexOf('Named');
   for(let r=1;r<rows.length;r++){if(rows[r].length<=iA)continue; if(iN>=0 && rows[r][iN]!=='True')continue; agreed[canon(rows[r][iS])]=parseFloat(rows[r][iA]);} }
 
-// manual aliases: statement menu name -> update-file menu name (reference/menu_aliases.csv).
+// manual aliases: statement menu name -> update-file menu name (data/reference/menu_aliases.csv).
 const aliasMap={};
-{ const ap=path.join(__dirname,'..','reference','menu_aliases.csv');
+{ const ap=path.join(__dirname,'..','data', 'reference','menu_aliases.csv');
   if(fs.existsSync(ap)){ const rows=parseCSV(fs.readFileSync(ap,'utf8'));
     const h=rows[0].map(x=>x.replace(/^﻿/,'').trim()); const iSt=h.indexOf('statement_name'),iUp=h.indexOf('update_file_name');
     for(let r=1;r<rows.length;r++){ if(rows[r].length<=iUp||!rows[r][iSt])continue; aliasMap[canon(rows[r][iSt])]=canon(rows[r][iUp]); } } }

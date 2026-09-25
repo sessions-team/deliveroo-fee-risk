@@ -2,7 +2,7 @@
 //
 // A THIN wrapper around the existing audit pipeline (modelled on the weekly-platform-kpi
 // server, same VM): it serves the self-contained HTML reports the pipeline already produces
-// (05_reports/Deliveroo_Q3_Rate_Tracker.html + Deliveroo_PfP_Risk_Mockup.html) behind a small
+// (output/reports/Deliveroo_Q3_Rate_Tracker.html + Deliveroo_PfP_Risk_Mockup.html) behind a small
 // status bar with "Refresh now", an /inputs upload page for the quarterly Deliveroo files,
 // and a daily 08:00 Europe/London auto-refresh (node-cron). All the number-crunching stays in
 // the untouched scripts/*.js — the server only shells out to scripts/run_refresh.js.
@@ -23,9 +23,9 @@ const Busboy = require('busboy');
 const auth = require('./auth');
 
 const ROOT = path.resolve(__dirname, '..');
-const REPORTS = path.join(ROOT, '05_reports');
-const SOURCE = path.join(ROOT, '03_source-data');
-const RATES = path.join(ROOT, '02_menu-rates');
+const REPORTS = path.join(ROOT, 'output', 'reports');
+const SOURCE = path.join(ROOT, 'data', 'raw', 'commission-output');
+const RATES = path.join(ROOT, 'data', 'raw', 'menu-rates');
 const LOGS = path.join(ROOT, 'logs');
 const UPLOADS = path.join(ROOT, 'uploads');
 const TRACKER = path.join(REPORTS, 'Deliveroo_Q3_Rate_Tracker.html');
@@ -358,7 +358,7 @@ const inputsPage = (user, canRefresh) => `<!doctype html>
       <label>New-sites rate card (.md, optional)</label>
       <input type="file" name="rate_card" accept=".md,.txt">
       <p class="hint" style="margin-top:16px">Files are archived under <code>uploads/</code> on the server;
-      the canonical copies land in <code>03_source-data/</code> / <code>02_menu-rates/</code>.</p>
+      the canonical copies land in <code>data/raw/commission-output/</code> / <code>data/raw/menu-rates/</code>.</p>
       <button class="primary" type="submit">Upload &amp; rebuild</button>
     </form>
     <div id="result"></div>

@@ -10,7 +10,7 @@
 // --full (after a quarterly Commission Output upload, or first deploy) prepends:
 //   0a. scripts/build_id_name_map.js         — refresh the Roo Hub ID→name registry (BigQuery)
 //   0b. Validate-Q3ExistingSites.ps1 (pwsh)  — validate the newest commission CSV vs contract,
-//       writing 04_analysis/Q3_existing-sites_BY-SITE.csv (explicit args: the script's default
+//       writing output/analysis/Q3_existing-sites_BY-SITE.csv (explicit args: the script's default
 //       param paths are Windows-style and must not be relied on under Linux).
 //
 // Safety: single-run lock (logs/refresh.lock), per-run log (logs/refresh-<ts>.log), compact
@@ -25,8 +25,8 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 const ROOT = path.resolve(__dirname, '..');
-const SOURCE = path.join(ROOT, '03_source-data');
-const ANALYSIS = path.join(ROOT, '04_analysis');
+const SOURCE = path.join(ROOT, 'data', 'raw', 'commission-output');
+const ANALYSIS = path.join(ROOT, 'output', 'analysis');
 const LOGS = path.join(ROOT, 'logs');
 const LOCK = path.join(LOGS, 'refresh.lock');
 const STATUS = path.join(LOGS, 'status.json');
@@ -119,7 +119,7 @@ try {
     // Stage 0b — contract validation of the newest Commission Output CSV
     hr('STAGE 0b — validate commission output vs contract (Validate-Q3ExistingSites.ps1)');
     const input = newestCommissionCsv();
-    if (!input) throw fail('error', 'No Q3 Commission Output CSV found in 03_source-data/ — upload one via /inputs.', 'validate');
+    if (!input) throw fail('error', 'No Q3 Commission Output CSV found in data/raw/commission-output/ — upload one via /inputs.', 'validate');
     const ps = pwshBin();
     if (!ps) throw fail('error', 'PowerShell (pwsh) is not installed — cannot run the contract validator.', 'validate');
     out(`validator: ${ps}  input: ${path.basename(input)}\n`);
@@ -128,7 +128,7 @@ try {
     const v = runCmd(ps, ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(__dirname, 'Validate-Q3ExistingSites.ps1'),
       '-InputCsv', input,
       '-NameMapCsv', path.join(SOURCE, 'Q2_existing-sites_commission_output_2026-04-08.csv'),
-      '-HubMapCsv', path.join(ROOT, 'reference', 'deliveroo_id_name_map.csv'),
+      '-HubMapCsv', path.join(ROOT, 'data', 'reference', 'deliveroo_id_name_map.csv'),
       '-OutDir', ANALYSIS,
     ], 'Validate-Q3ExistingSites.ps1');
     if (v.code !== 0) throw fail('error', `Contract validation failed (exit ${v.code}) — see the run log.`, 'validate');

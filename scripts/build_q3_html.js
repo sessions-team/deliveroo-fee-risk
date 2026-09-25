@@ -1,9 +1,9 @@
 // Build a self-contained interactive HTML dashboard for the Q3 rate tracker.
-// Q3 sibling of build_q2_html.js — reads 04_analysis/q3_dashboard_data.json (from build_q3_views.js). No external libs.
+// Q3 sibling of build_q2_html.js — reads output/analysis/q3_dashboard_data.json (from build_q3_views.js). No external libs.
 const fs = require('fs');
 const path = require('path');
-const OUT = path.join(__dirname, '..', '04_analysis');
-const REPORTS = path.join(__dirname, '..', '05_reports');
+const OUT = path.join(__dirname, '..', 'output', 'analysis');
+const REPORTS = path.join(__dirname, '..', 'output', 'reports');
 const data = JSON.parse(fs.readFileSync(path.join(OUT, 'q3_dashboard_data.json'), 'utf8'));
 // Optional: PfP fee-risk dataset (scripts/build_pfp_risk.js). Tab shows a how-to note if absent.
 let pfp = null;

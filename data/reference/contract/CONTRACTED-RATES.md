@@ -7,7 +7,7 @@
 **Territory:** United Kingdom
 **Permitted order types:** Delivery Orders and Pick-up Orders
 
-> This file is the **source of truth** for what we *should* be charged. The comparison in `04_analysis` checks actual charges against the rates below.
+> This file is the **source of truth** for what we *should* be charged. The comparison in `output/analysis` checks actual charges against the rates below.
 
 ---
 

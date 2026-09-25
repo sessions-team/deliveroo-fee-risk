@@ -8,8 +8,8 @@ const path = require('path');
 const { discoverWeeks } = require('C:\\Users\\Trist\\Documents\\Claude\\projects\\Platform-weekly-dashboard\\scripts\\weeks.js');
 const ExcelJS = require('C:\\Users\\Trist\\Documents\\Claude\\projects\\Platform-weekly-dashboard\\node_modules\\exceljs');
 
-const OUT = path.join(__dirname, '..', '04_analysis');
-const REPORTS = path.join(__dirname, '..', '05_reports');
+const OUT = path.join(__dirname, '..', 'output', 'analysis');
+const REPORTS = path.join(__dirname, '..', 'output', 'reports');
 const Q2_START = '2026-04-01';
 const ADJ_TOL = 0.05; // pts tolerance for "matches the Q2 update file"
 
@@ -43,9 +43,9 @@ const agreed={};
 
 // manual aliases: statement menu name -> update-file menu name, for cases the canonical key
 // can't catch (e.g. the statement drops the host: "SoBe Burger - Farnborough" ==
-// "SoBe Burger @ Rushmoor Grill - Farnborough"). Reviewed/curated in reference/menu_aliases.csv.
+// "SoBe Burger @ Rushmoor Grill - Farnborough"). Reviewed/curated in data/reference/menu_aliases.csv.
 const aliasMap={};
-{ const ap=path.join(__dirname,'..','reference','menu_aliases.csv');
+{ const ap=path.join(__dirname,'..','data', 'reference','menu_aliases.csv');
   if(fs.existsSync(ap)){ const rows=parseCSV(fs.readFileSync(ap,'utf8'));
     const h=rows[0].map(x=>x.replace(/^﻿/,'').trim()); const iSt=h.indexOf('statement_name'),iUp=h.indexOf('update_file_name');
     for(let r=1;r<rows.length;r++){ if(rows[r].length<=iUp||!rows[r][iSt])continue; aliasMap[canon(rows[r][iSt])]=canon(rows[r][iUp]); } } }

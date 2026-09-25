@@ -8,10 +8,10 @@ Sheets:
 #>
 param(
   [string]$Root = "$PSScriptRoot\..",
-  [string]$BySiteCsv = "$PSScriptRoot\..\04_analysis\Q2_existing-sites_BY-SITE.csv"
+  [string]$BySiteCsv = "$PSScriptRoot\..\output\analysis\Q2_existing-sites_BY-SITE.csv"
 )
 $ErrorActionPreference = 'Stop'
-$outXlsx = Join-Path (Resolve-Path "$Root\05_reports") 'Deliveroo_Rate_Audit_Q2-2026.xlsx'
+$outXlsx = Join-Path (Resolve-Path "$Root\output\reports") 'Deliveroo_Rate_Audit_Q2-2026.xlsx'
 
 $bySite = Import-Csv $BySiteCsv
 $nIncreased = ($bySite | Where-Object {$_.RateIncreased -eq 'True'}).Count

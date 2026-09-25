@@ -8,7 +8,7 @@ files, "Refresh now", and a daily 08:00 auto-refresh.
 
 **Deployed as `deliveroo-fee-risk` on the GCP VM `vm-claude-code` (34.13.22.38), port 8085,**
 **behind the Mozart portal at http://feerisk.34.13.22.38.nip.io/.** Analysis methodology lives
-in `README.md`; the contract's band tables in `01_contract/CONTRACTED-RATES.md`.
+in `README.md`; the contract's band tables in `data/reference/contract/CONTRACTED-RATES.md`.
 
 ## 1. Stack
 
@@ -18,7 +18,7 @@ in `README.md`; the contract's band tables in `01_contract/CONTRACTED-RATES.md`.
 | Auth | Google OAuth 2.0 code flow, hand-rolled in `server/auth.js` (global fetch) + `cookie-session` |
 | Scheduler | `node-cron` inside the server process (no OS cron on the VM) — daily 08:00 Europe/London |
 | Pipeline | Node scripts under `scripts/` + the quarterly PowerShell validator (`pwsh` on the VM) |
-| Uploads | `busboy` multipart → `03_source-data/` + archive in `uploads/` |
+| Uploads | `busboy` multipart → `data/raw/commission-output/` + archive in `uploads/` |
 | BigQuery | `@google-cloud/bigquery` on ADC (VM: attached service account, read-only; no key file) |
 | Statements | read from the **weekly-platform-kpi** app's Drive mirror (see §6) |
 | Process manager (VM) | PM2 under root (`ecosystem.config.js`), persisted via `pm2-root.service` |
@@ -47,7 +47,7 @@ NON-fatal — the tab keeps the previous data) → `3` build_q3_html + build_pfp
 (Roo Hub registry from BigQuery; failure = warning) → `0b` `pwsh Validate-Q3ExistingSites.ps1`
 with EXPLICIT `-InputCsv/-NameMapCsv/-HubMapCsv/-OutDir` args (the script's default param paths
 are Windows-style `\` and must never be relied on under Linux). The validator input is the
-NEWEST `03_source-data/Q3_existing-sites_commission_output_*.csv` by filename sort.
+NEWEST `data/raw/commission-output/Q3_existing-sites_commission_output_*.csv` by filename sort.
 
 Safety: single-run lock `logs/refresh.lock`, per-run log `logs/refresh-<ts>.log`, UI summary in
 `logs/status.json`. Blocker → the server keeps serving the last good output.
@@ -110,8 +110,20 @@ pm2 logs deliveroo-fee-risk --lines 100
 tail -50 /opt/deliveroo-fee-risk/logs/refresh-*.log
 ```
 
+**One-off after pulling the 2026-09-25 layout change** (numbered `01_…05_` folders → the
+standard `data/` + `output/` layout): the generated dirs are untracked on the VM, so `git pull`
+leaves them behind and the site would 404 until the next refresh rebuilt them. Move them by hand
+before `pm2 restart`, plus anything uploaded via `/inputs` since the last commit:
+
+```bash
+cd /opt/deliveroo-fee-risk && mkdir -p output data/raw/commission-output data/raw/menu-rates
+mv 04_analysis output/analysis && mv 05_reports output/reports
+mv 03_source-data/* data/raw/commission-output/ 2>/dev/null; mv 02_menu-rates/* data/raw/menu-rates/ 2>/dev/null
+rmdir 01_contract 02_menu-rates 03_source-data reference 2>/dev/null; true
+```
+
 VM-only files (never in git): `.env`, `allowed-emails.json`, `uploads/`, `logs/`,
-`04_analysis/`, `05_reports/` (the last two are rebuilt by the pipeline).
+`output/analysis/`, `output/reports/` (the last two are rebuilt by the pipeline).
 System prerequisite: **PowerShell 7** (`pwsh`, Microsoft apt repo) for the quarterly validator.
 
 ## 8. VM conventions (shared with the other Sessions apps — verify, don't guess)
@@ -131,13 +143,13 @@ System prerequisite: **PowerShell 7** (`pwsh`, Microsoft apt repo) for the quart
 1. Deliveroo email the **new-sites rate card** → save as `.md`; the **existing-sites Commission
    Output CSV** arrives alongside.
 2. Open **http://feerisk.34.13.22.38.nip.io/inputs**, pick the quarter, upload both. The CSV's
-   header is sanity-checked, canonical copies land in `03_source-data/` / `02_menu-rates/`, raw
+   header is sanity-checked, canonical copies land in `data/raw/commission-output/` / `data/raw/menu-rates/`, raw
    uploads are archived under `uploads/`, and a `--full` refresh runs automatically.
 3. **Quarterly rollover (Claude session):** per repo convention scripts are duplicated per
    quarter (`Validate-Q{n}...`, `build_q{n}_views/html.js`) so history stays intact — generate
    the next quarter's set, update the constants (quarter dates, effective-from = 10th business
    day after quarter end), update `run_refresh.js`/`server/index.js` references, redeploy.
-4. Check `04_analysis/Q{n}_existing-sites_UNNAMED.csv` is empty (registry names all new IDs).
+4. Check `output/analysis/Q{n}_existing-sites_UNNAMED.csv` is empty (registry names all new IDs).
 
 ## 10. Gotchas
 

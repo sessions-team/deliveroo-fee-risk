@@ -8,9 +8,8 @@ allowed-emails.json
 # dependencies
 node_modules/
 
-# generated (fully rebuildable from 01_contract/02_menu-rates/03_source-data/reference)
-04_analysis/
-05_reports/
+# generated (fully rebuildable from data/raw + data/reference)
+output/
 
 # runtime artefacts
 logs/

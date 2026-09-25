@@ -4,7 +4,7 @@
 // re-measured by Deliveroo every quarter and set next quarter's rate. This script computes each
 // site's quarter-to-date metrics from BigQuery, maps them onto the contract band tables, and
 // compares the projected next-quarter adjustment with the adjustment currently applied
-// (04_analysis/Q3_existing-sites_BY-SITE.csv).
+// (output/analysis/Q3_existing-sites_BY-SITE.csv).
 //
 // Metric sources (project sessions-core-data, dataset deliveroo), validated against the raw
 // per-site values on Deliveroo's Q3 Commission Output:
@@ -20,14 +20,14 @@
 // Platform-weekly-dashboard fetch. BQ client is borrowed from that project's node_modules.
 //
 // Usage: node scripts/build_pfp_risk.js
-// Writes 04_analysis/q3_pfp_risk_data.json and 05_reports/Deliveroo_PfP_Risk_Mockup.html.
+// Writes output/analysis/q3_pfp_risk_data.json and output/reports/Deliveroo_PfP_Risk_Mockup.html.
 
 const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.join(ROOT, '04_analysis');
-const REPORTS = path.join(ROOT, '05_reports');
+const OUT = path.join(ROOT, 'output', 'analysis');
+const REPORTS = path.join(ROOT, 'output', 'reports');
 
 const PROJECT_ID = process.env.BQ_PROJECT_ID || 'sessions-core-data';
 const LOCATION = process.env.BQ_LOCATION || 'europe-west2';
@@ -124,7 +124,7 @@ const r2 = v => (v == null ? null : Math.round(v * 100) / 100);
 const canon = s => String(s || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '');
 function loadAliasMap() {
   const map = {};
-  const ap = path.join(ROOT, 'reference', 'menu_aliases.csv');
+  const ap = path.join(ROOT, 'data', 'reference', 'menu_aliases.csv');
   if (fs.existsSync(ap)) {
     for (const r of parseCsv(fs.readFileSync(ap, 'utf8'))) {
       if (r.statement_name) map[canon(r.statement_name)] = canon(r.update_file_name);
@@ -256,7 +256,7 @@ async function main() {
   fs.writeFileSync(path.join(OUT, 'q3_pfp_risk_data.json'), JSON.stringify(data, null, 1));
   console.log(`  portfolio: rider wait ${portfolio.rwt}% | missing items ${portfolio.mi}% | open at peak ${portfolio.oh}%`);
   console.log(`  at risk: ${kpis.atRisk} sites (£${kpis.riskGbp.toLocaleString()}/qtr) | improving: ${kpis.improving} (£${kpis.oppGbp.toLocaleString()}/qtr)`);
-  console.log(`  wrote 04_analysis/q3_pfp_risk_data.json — now run scripts/build_pfp_risk_html.js`);
+  console.log(`  wrote output/analysis/q3_pfp_risk_data.json — now run scripts/build_pfp_risk_html.js`);
 }
 
 main().catch(e => { console.error('FATAL:', e.message); process.exit(1); });

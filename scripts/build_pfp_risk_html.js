@@ -1,10 +1,10 @@
-// Build the PfP Adjustment Risk mockup HTML — reads 04_analysis/q3_pfp_risk_data.json
+// Build the PfP Adjustment Risk mockup HTML — reads output/analysis/q3_pfp_risk_data.json
 // (from build_pfp_risk.js). Self-contained, no external libs, house style of the Q2/Q3 trackers.
 // Written for readers who are not finance people: every number is paired with what it means.
 const fs = require('fs');
 const path = require('path');
-const OUT = path.join(__dirname, '..', '04_analysis');
-const REPORTS = path.join(__dirname, '..', '05_reports');
+const OUT = path.join(__dirname, '..', 'output', 'analysis');
+const REPORTS = path.join(__dirname, '..', 'output', 'reports');
 const data = JSON.parse(fs.readFileSync(path.join(OUT, 'q3_pfp_risk_data.json'), 'utf8'));
 
 const CSS = `
@@ -245,4 +245,4 @@ ${shell()}
 
 const out = path.join(REPORTS, 'Deliveroo_PfP_Risk_Mockup.html');
 fs.writeFileSync(out, html);
-console.log(`wrote 05_reports/Deliveroo_PfP_Risk_Mockup.html (${(html.length / 1024).toFixed(0)} KB, ${data.sites.length} sites)`);
+console.log(`wrote output/reports/Deliveroo_PfP_Risk_Mockup.html (${(html.length / 1024).toFixed(0)} KB, ${data.sites.length} sites)`);

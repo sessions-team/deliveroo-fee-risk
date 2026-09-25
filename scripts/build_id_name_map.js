@@ -1,4 +1,4 @@
-// Builds reference/deliveroo_id_name_map.csv: Restaurant ID -> site name, from the
+// Builds data/reference/deliveroo_id_name_map.csv: Restaurant ID -> site name, from the
 // Deliveroo Hub restaurant registry in BigQuery (roo_hub_sessions_restaurants_unique_staging).
 // This is the "ID->name reference" the quarterly validators use to name restaurants that
 // arrive in the Commission Output with blank Site/Brand (all IDs from Q3 2026 onward) and
@@ -16,7 +16,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const REF = path.join(ROOT, 'reference');
+const REF = path.join(ROOT, 'data', 'reference');
 
 const PROJECT_ID = process.env.BQ_PROJECT_ID || 'sessions-core-data';
 const LOCATION = process.env.BQ_LOCATION || 'europe-west2';

@@ -73,7 +73,7 @@ forward-slash args (its default param paths are Windows `\`).
       on); refresh tier: `POST /api/refresh` + `/api/upload` 403 for view-only accounts.
 - [x] **A3. `/inputs` upload form** — quarterly Commission Output CSV (+ optional new-sites rate
       card .md) via busboy; CSV header sanity-checked before install; canonical copies land in
-      `03_source-data/` / `02_menu-rates/`, raw upload archived under `uploads/` (gitignored);
+      `data/raw/commission-output/` / `data/raw/menu-rates/`, raw upload archived under `uploads/` (gitignored);
       a Q3 CSV upload auto-triggers a `--full` refresh.
 - [x] **A4. `scripts/run_refresh.js`** — orchestrator (lock `logs/refresh.lock`, per-run log,
       `logs/status.json` for the UI). Daily: views → PfP BigQuery (failure NON-fatal, keeps
@@ -85,7 +85,7 @@ forward-slash args (its default param paths are Windows `\`).
 - [x] **A6. `ecosystem.config.js`** — PM2 (name `deliveroo-fee-risk`, script `server/index.js`,
       cwd `/opt/deliveroo-fee-risk`, PORT 8085, 500M restart cap).
 - [x] **A7. `.env.example` + `allowed-emails.example.json` committed; `.gitignore` = `.env*`,
-      `allowed-emails.json`, `node_modules/`, `uploads/`, `logs/`, `04_analysis/`, `05_reports/`
+      `allowed-emails.json`, `node_modules/`, `uploads/`, `logs/`, `output/analysis/`, `output/reports/`
       (analysis + reports fully regenerable from committed sources).**
 - [x] **A8. `CLAUDE.md`** (standalone repo doc: stack, env vars, deploy, quarterly runbook,
       weekly-platform-kpi cross-dependency, gotchas) **+ README** web-app section; `git init`,

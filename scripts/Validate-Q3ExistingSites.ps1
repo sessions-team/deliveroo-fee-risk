@@ -5,7 +5,7 @@ Validates the Q3 2026 existing-sites commission output against the Deliveroo con
 Q3 file differences vs Q2 (handled here):
   * Site / Brand columns arrive BLANK (only Restaurant ID identifies a menu) -> we
     backfill the Site name from the Q2 commission output's Restaurant ID -> Site map,
-    then from the Roo Hub registry reference (reference/deliveroo_id_name_map.csv,
+    then from the Roo Hub registry reference (data/reference/deliveroo_id_name_map.csv,
     refresh with: node scripts/build_id_name_map.js). Restaurants with no name in
     either source are written to a separate _UNNAMED CSV.
   * New "AOV" (raw) + "AOV Adjustment" columns. AOV Adjustment is included in the
@@ -27,10 +27,10 @@ Outputs:
 #>
 
 param(
-  [string]$InputCsv = "$PSScriptRoot\..\03_source-data\Q3_existing-sites_commission_output_2026-07-01.csv",
-  [string]$NameMapCsv = "$PSScriptRoot\..\03_source-data\Q2_existing-sites_commission_output_2026-04-08.csv",
-  [string]$HubMapCsv  = "$PSScriptRoot\..\reference\deliveroo_id_name_map.csv",
-  [string]$OutDir   = "$PSScriptRoot\..\04_analysis"
+  [string]$InputCsv = "$PSScriptRoot\..\data\raw\commission-output\Q3_existing-sites_commission_output_2026-07-01.csv",
+  [string]$NameMapCsv = "$PSScriptRoot\..\data\raw\commission-output\Q2_existing-sites_commission_output_2026-04-08.csv",
+  [string]$HubMapCsv  = "$PSScriptRoot\..\data\reference\deliveroo_id_name_map.csv",
+  [string]$OutDir   = "$PSScriptRoot\..\output\analysis"
 )
 
 $ErrorActionPreference = 'Stop'

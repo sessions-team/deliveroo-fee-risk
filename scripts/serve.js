@@ -1,6 +1,6 @@
-// Minimal static file server for previewing the HTML dashboard. Serves 05_reports/.
+// Minimal static file server for previewing the HTML dashboard. Serves output/reports/.
 const http=require('http'), fs=require('fs'), path=require('path');
-const ROOT=path.join(__dirname,'..','05_reports');
+const ROOT=path.join(__dirname,'..','output', 'reports');
 const PORT=8137;
 const TYPES={'.html':'text/html','.json':'application/json','.csv':'text/csv'};
 http.createServer((req,res)=>{

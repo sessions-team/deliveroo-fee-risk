@@ -8,7 +8,7 @@
 //   FUZZY n    - Levenshtein similarity >= 0.90 on the canonical key — needs human review
 //   NONE       - genuinely not in the file (real new site)
 const fs=require('fs'), path=require('path');
-const OUT=path.join(__dirname,'..','04_analysis');
+const OUT=path.join(__dirname,'..','output', 'analysis');
 
 function parseCSV(t){const rows=[];let row=[],f='',i=0,q=false;while(i<t.length){const c=t[i];if(q){if(c==='"'){if(t[i+1]==='"'){f+='"';i+=2;continue;}q=false;i++;continue;}f+=c;i++;continue;}if(c==='"'){q=true;i++;continue;}if(c===','){row.push(f);f='';i++;continue;}if(c==='\r'){i++;continue;}if(c==='\n'){row.push(f);rows.push(row);row=[];f='';i++;continue;}f+=c;i++;}if(f.length||row.length){row.push(f);rows.push(row);}return rows;}
 const light = s => String(s||'').trim().replace(/\s+/g,' ').toLowerCase();              // current join key
@@ -57,4 +57,4 @@ console.log('\nSample CANONICAL matches (statement name  ==>  Q2-file name  [adj
 review.filter(r=>r.matchType==='CANONICAL').slice(0,15).forEach(r=>console.log('  "'+r.menu+'"  ==>  "'+r.matchedCsvName+'"  ['+r.agreedAdj+']'));
 console.log('\nSample FUZZY candidates (review):');
 review.filter(r=>r.matchType==='FUZZY').slice(0,12).forEach(r=>console.log('  '+r.score+'  "'+r.menu+'"  ~  "'+r.matchedCsvName+'"  ['+r.agreedAdj+']'));
-console.log('\nReview list -> 04_analysis/q2_name_match_review.csv');
+console.log('\nReview list -> output/analysis/q2_name_match_review.csv');

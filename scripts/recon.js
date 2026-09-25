@@ -18,7 +18,7 @@ const path = require('path');
 const { discoverWeeks } = require('C:\\Users\\Trist\\Documents\\Claude\\projects\\Platform-weekly-dashboard\\scripts\\weeks.js');
 
 const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, '04_analysis');
+const OUT = path.join(ROOT, 'output', 'analysis');
 const TOL_ARITH = 0.02;            // £ tolerance on per-order arithmetic
 const ENV_MIN = -6.10, ENV_MAX = 2.40, ENV_TOL = 0.01;  // contract adjustment envelope
 const Q2_EFFECTIVE_FROM = '2026-04-16'; // agreed Q2 rate effective ~10th business day after Q1 end
@@ -281,4 +281,4 @@ if(overcharged.length){
   console.log('    Top overcharged sites:');
   overcharged.sort((a,b)=>b.diff_vs_agreed-a.diff_vs_agreed).slice(0,12).forEach(r=>console.log(`      ${r.site} [${r.account}]: charged ${r.chargedAdj} vs agreed ${r.agreedAdj} (+${r.diff_vs_agreed}pts, postEff GMV £${r.q2_gmv_postEff}, ${r.q2_orders_postEff} orders)`));
 }
-console.log('\nOutputs -> 04_analysis/: recon_site_rate_regimes.csv, recon_Q2_vs_agreed.csv, recon_weekly_by_account.csv, recon_anomalies.csv');
+console.log('\nOutputs -> output/analysis/: recon_site_rate_regimes.csv, recon_Q2_vs_agreed.csv, recon_weekly_by_account.csv, recon_anomalies.csv');

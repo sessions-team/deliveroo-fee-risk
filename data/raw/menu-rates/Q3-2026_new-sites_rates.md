@@ -1,7 +1,7 @@
 # Q3 2026 Commission — NEW sites (launched after Q2)
 
 **Source:** Email from Liam Gillanders (Deliveroo) → Ellie Wilson, Tue 7 Jul 2026, subj "Sessions Q3 Commission".
-**Applies to:** sites that launched *after* the start of Q3 2026 (i.e. no preceding-quarter performance data, so a standard Ops adjustment is applied). Existing-estate sites are on their individually-banded rates in the Q3 Commission Output (`03_source-data/Q3_existing-sites_commission_output_2026-07-01.csv`).
+**Applies to:** sites that launched *after* the start of Q3 2026 (i.e. no preceding-quarter performance data, so a standard Ops adjustment is applied). Existing-estate sites are on their individually-banded rates in the Q3 Commission Output (`data/raw/commission-output/Q3_existing-sites_commission_output_2026-07-01.csv`).
 
 These are the rates Deliveroo says apply per order-value bracket in Q3 2026:
 
