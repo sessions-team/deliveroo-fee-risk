@@ -1,11 +1,11 @@
-// Build the PfP Adjustment Risk mockup HTML — reads output/analysis/q3_pfp_risk_data.json
+// Build the PfP Adjustment Risk mockup HTML — reads output/analysis/q{n}_pfp_risk_data.json (quarter from scripts/lib/current_quarter.js)
 // (from build_pfp_risk.js). Self-contained, no external libs, house style of the Q2/Q3 trackers.
 // Written for readers who are not finance people: every number is paired with what it means.
 const fs = require('fs');
 const path = require('path');
 const OUT = path.join(__dirname, '..', 'output', 'analysis');
 const REPORTS = path.join(__dirname, '..', 'output', 'reports');
-const data = JSON.parse(fs.readFileSync(path.join(OUT, 'q3_pfp_risk_data.json'), 'utf8'));
+const data = JSON.parse(fs.readFileSync(path.join(OUT, `${require('./lib/current_quarter').qn}_pfp_risk_data.json`), 'utf8'));
 
 const CSS = `
 *{box-sizing:border-box} body{margin:0;font:14px/1.45 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#16242b;background:#f4f6f7}
@@ -197,7 +197,7 @@ function clientApp() {
       <th>Riders kept waiting</th><th>Missing / wrong items</th><th>Open at peak (5–9pm)</th>
       <th>Rate move if qtr ended today</th><th>£ next quarter</th></tr></thead><tbody>`;
     for (const s of rows) {
-      const pills = (s.isNew ? ' <span class="pill new">new in Q3</span>' : '')
+      const pills = (s.isNew ? ' <span class="pill new">new in ' + D.quarter.split(' ')[0] + '</span>' : '')
         + (s.lowVolume ? ' <span class="pill low" title="Fewer than 30 delivered orders so far — scores can swing a lot">low data</span>' : '')
         + (s.onGroupRate ? ' <span class="pill grp" title="Deliveroo measured this menu on the shared group score last quarter, not its own">group score</span>' : '');
       const dir = s.delta == null ? 'flat' : s.delta > 0 ? 'up' : s.delta < 0 ? 'down' : 'flat';
@@ -226,7 +226,7 @@ function clientApp() {
 
   $('#foot').innerHTML = `<b>Mockup — methodology & caveats.</b> Metrics computed from our BigQuery copies of Deliveroo's
   operational feeds (orders, missing-item claims, hourly opening) for ${D.qStart} to ${D.kpis.maxD}
-  (${D.kpis.elapsed} of 92 days). “£ next quarter” = rate move × the menu's sales scaled to a full quarter.
+  (${D.kpis.elapsed} of ${D.qDays || 92} days). “£ next quarter” = rate move × the menu's sales scaled to a full quarter.
   <b>Missing items</b> and <b>peak opening</b> reproduce Deliveroo's own quarterly measurements almost exactly
   (validated against the Q3 Commission Output). <b>Rider waiting</b> is a calibrated proxy — our order export's wait
   clock runs longer than Deliveroo's “Rider Held Time”, and a tuned threshold matches Deliveroo's measured
