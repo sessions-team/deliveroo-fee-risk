@@ -94,7 +94,7 @@ tr.empty td{color:#b9c4c8!important}
 .worstgrid th,.worstgrid td{position:static;padding:4px 6px;border-bottom:1px solid #eef2f3;white-space:nowrap;text-align:right}
 .worstgrid th{background:#f2f5f6;color:#3a4a50;font-weight:600;z-index:auto;white-space:normal}
 .worstgrid th.l,.worstgrid td.l{text-align:left}
-.worstgrid td.l{max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.worstgrid td.l{max-width:230px;white-space:normal;word-break:break-word;line-height:1.25}
 details.bands{overflow-x:auto}
 `;
 
