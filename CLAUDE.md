@@ -2,9 +2,10 @@
 
 Tracks the commission rates Deliveroo actually charges per menu against the contracted rates,
 and flags menus heading for a PfP fee increase next quarter while there's still time to fix it.
-A thin Express server wraps the existing audit pipeline: status bar + iframe of the built
-Q3 Rate Tracker, a standalone fee-risk page, an /inputs upload form for the quarterly Deliveroo
-files, "Refresh now", and a daily 08:00 auto-refresh.
+A thin Express server wraps the existing audit pipeline: status bar + iframe of the current
+quarter's Rate Tracker, a standalone fee-risk page, an /inputs upload form for the quarterly
+Deliveroo files, "Refresh now", and a daily 08:00 auto-refresh. **Current quarter: Q4 2026**
+(`scripts/lib/current_quarter.js`, rolled over 2026-10-06).
 
 **Deployed as `deliveroo-fee-risk` on the GCP VM `vm-claude-code` (34.13.22.38), port 8085,**
 **behind the Mozart portal at http://feerisk.34.13.22.38.nip.io/.** Analysis methodology lives
@@ -39,15 +40,22 @@ No TypeScript, no build step — keep it that way unless asked.
 
 ## 3. The pipeline (`npm run refresh` → `scripts/run_refresh.js`)
 
-Daily / "Refresh now" (data refresh): `1` build_q3_views (rolling-4 rate check from weekly
+Which quarter's scripts run comes from **`scripts/lib/current_quarter.js`** (`QN`, dates,
+`effectiveFrom`, `nameMapCsv`) — `run_refresh.js`, `server/index.js`, `build_pfp_risk.js` and
+`build_pfp_risk_html.js` all read it; nothing else hard-codes the quarter. The per-quarter
+scripts (`Validate-Q{n}ExistingSites.ps1`, `build_q{n}_views.js`, `build_q{n}_html.js`) carry
+their own dates by design — frozen history, never edited after their quarter.
+
+Daily / "Refresh now" (data refresh): `1` build_q{n}_views (rolling-4 rate check from weekly
 statements) → `2` build_pfp_risk (quarter-to-date PfP metrics from BigQuery; failure is
-NON-fatal — the tab keeps the previous data) → `3` build_q3_html + build_pfp_risk_html.
+NON-fatal — the tab keeps the previous data) → `3` build_q{n}_html + build_pfp_risk_html.
 
 `--full` (after a quarterly upload, or first deploy) prepends: `0a` build_id_name_map
-(Roo Hub registry from BigQuery; failure = warning) → `0b` `pwsh Validate-Q3ExistingSites.ps1`
+(Roo Hub registry from BigQuery; failure = warning) → `0b` `pwsh Validate-Q{n}ExistingSites.ps1`
 with EXPLICIT `-InputCsv/-NameMapCsv/-HubMapCsv/-OutDir` args (the script's default param paths
 are Windows-style `\` and must never be relied on under Linux). The validator input is the
-NEWEST `data/raw/commission-output/Q3_existing-sites_commission_output_*.csv` by filename sort.
+NEWEST `data/raw/commission-output/Q{n}_existing-sites_commission_output_*.csv` by filename sort;
+`-NameMapCsv` stays the **Q2** file (`current_quarter.nameMapCsv`) — the last one with Site names.
 
 Safety: single-run lock `logs/refresh.lock`, per-run log `logs/refresh-<ts>.log`, UI summary in
 `logs/status.json`. Blocker → the server keeps serving the last good output.
@@ -110,6 +118,16 @@ pm2 logs deliveroo-fee-risk --lines 100
 tail -50 /opt/deliveroo-fee-risk/logs/refresh-*.log
 ```
 
+**Quarter-rollover deploy order:** pull → `npm install --omit=dev` → `npm run refresh:full` →
+`pm2 restart`. The restarted server looks for the NEW quarter's tracker file; restarting before
+the refresh builds it = "Tracker not built yet" until it does.
+
+**Registry blocks `git pull`:** every `--full` rewrites the VM's
+`data/reference/deliveroo_id_name_map.csv`, so it is always locally modified; if an incoming
+commit also changes it, `git pull` refuses. Fix: `cp` it to `…csv.bak.<desc>.<ts>` (gitignored
+by `*.bak.*`), `git checkout -- data/reference/deliveroo_id_name_map.csv`, pull, then
+`npm run refresh:full` regenerates it from BigQuery. Done this way 2026-11-06 (Q4 deploy).
+
 **One-off after pulling the 2026-09-25 layout change — already done on the VM (2026-09-25),
 kept for the record** (numbered `01_…05_` folders → the standard `data/` + `output/` layout):
 the generated dirs are untracked on the VM, so `git pull` leaves them behind and the site would
@@ -147,11 +165,19 @@ System prerequisite: **PowerShell 7** (`pwsh`, Microsoft apt repo) for the quart
 2. Open **http://feerisk.34.13.22.38.nip.io/inputs**, pick the quarter, upload both. The CSV's
    header is sanity-checked, canonical copies land in `data/raw/commission-output/` / `data/raw/menu-rates/`, raw
    uploads are archived under `uploads/`, and a `--full` refresh runs automatically.
-3. **Quarterly rollover (Claude session):** per repo convention scripts are duplicated per
-   quarter (`Validate-Q{n}...`, `build_q{n}_views/html.js`) so history stays intact — generate
-   the next quarter's set, update the constants (quarter dates, effective-from = 10th business
-   day after quarter end), update `run_refresh.js`/`server/index.js` references, redeploy.
-4. Check `output/analysis/Q{n}_existing-sites_UNNAMED.csv` is empty (registry names all new IDs).
+3. **Quarterly rollover (Claude session) — do this BEFORE the upload, the pipeline only builds
+   the quarter named in `current_quarter.js`:** per repo convention scripts are duplicated per
+   quarter so history stays intact. Clone the previous quarter's three scripts to
+   `Validate-Q{n}ExistingSites.ps1` / `build_q{n}_views.js` / `build_q{n}_html.js` and update
+   their constants (quarter start, effective-from = 10th business day after the previous quarter
+   ends, the "first full week ends" date, the awaiting-data banner text, `NEW_CARD_ADJ` from the
+   new-sites email). Then edit **`scripts/lib/current_quarter.js`** (QN/qn, label, next quarter,
+   start/end/days, effectiveFrom). Run `npm run refresh:full` locally, check the tracker, commit,
+   redeploy (§7), then upload via `/inputs` or `npm run refresh:full` on the VM.
+   Q4 2026 done 2026-10-06 (Q4 views also merge the `26` + `27` statement year folders because
+   the last Q4 week ends 3 Jan 2027 — keep that for any quarter straddling a year end).
+4. Check `output/analysis/Q{n}_existing-sites_UNNAMED.csv` is empty (registry names all new IDs);
+   if not, `node scripts/build_id_name_map.js` and re-run.
 
 ## 10. Gotchas
 
@@ -160,9 +186,21 @@ System prerequisite: **PowerShell 7** (`pwsh`, Microsoft apt repo) for the quart
   Time" %s, ±2pp typical) — directional only; missing items and open-at-peak match to ~0.1–0.3pp.
 - Deliveroo scores some sites on a shared **group-level** metric triple (the most common Raw_*
   triple in the BY-SITE file) rather than individually.
-- The PfP risk universe is restricted to the rate-check menus (`q3_rolling4_rate_check_by_menu.csv`)
-  so both tracker tabs quote one menu total — `build_q3_views.js` must run before `build_pfp_risk.js`.
+- The PfP risk universe is restricted to the rate-check menus (`q{n}_rolling4_rate_check_by_menu.csv`)
+  so both tracker tabs quote one menu total — `build_q{n}_views.js` must run before `build_pfp_risk.js`.
+  Until the first effective statement week lands that CSV is empty, so `build_pfp_risk.js` falls
+  back to every named site on the Commission Output (JSON `universe` field says which).
 - The BY-SITE CSV is written by PowerShell: booleans serialise as `True`/`False` (capital T/F) —
-  `build_q3_views.js` checks `Named !== 'True'`; keep that spelling if the validator is ever ported.
+  `build_q{n}_views.js` and `build_pfp_risk.js` check `Named === 'True'`; keep that spelling if the
+  validator is ever ported.
 - A quarter's Adjusted rate is effective from the **10th business day** after the previous
-  quarter ends (Q3 2026 = 2026-07-14); pre-effective weeks are checked against nothing.
+  quarter ends (Q3 2026 = 2026-07-14, Q4 2026 = 2026-10-14); pre-effective weeks are checked
+  against nothing.
+- Deliveroo's Q4 2026 Commission Output has a trailing comma on every line (unnamed 17th column)
+  and 4-decimal numbers; `Validate-Q4ExistingSites.ps1` trims the header's trailing comma before
+  `ConvertFrom-Csv`. `server/index.js`'s upload header check only looks for column names, so it
+  passes either shape.
+- The Q4 new-sites rate card (Deliveroo email 5 Oct 2026, `data/raw/menu-rates/Q4-2026_new-sites_rates.md`)
+  is identical to Q2 and Q3: every bracket = contract headline − 1.50 (−0.50 JBP + −1.00 Ops), so
+  `NEW_CARD_ADJ = -1.50` in `build_q4_views.js` is confirmed. The email's "Q3 sites for your
+  existing estate are attached" line is a slip — the attachment was the Q4 Commission Output.

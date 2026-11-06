@@ -2,7 +2,7 @@
 //
 // A THIN wrapper around the existing audit pipeline (modelled on the weekly-platform-kpi
 // server, same VM): it serves the self-contained HTML reports the pipeline already produces
-// (output/reports/Deliveroo_Q3_Rate_Tracker.html + Deliveroo_PfP_Risk_Mockup.html) behind a small
+// (output/reports/Deliveroo_Q{n}_Rate_Tracker.html + Deliveroo_PfP_Risk_Mockup.html) behind a small
 // status bar with "Refresh now", an /inputs upload page for the quarterly Deliveroo files,
 // and a daily 08:00 Europe/London auto-refresh (node-cron). All the number-crunching stays in
 // the untouched scripts/*.js — the server only shells out to scripts/run_refresh.js.
@@ -21,6 +21,7 @@ const express = require('express');
 const cron = require('node-cron');
 const Busboy = require('busboy');
 const auth = require('./auth');
+const CQ = require('../scripts/lib/current_quarter'); // the quarter the pipeline builds (rollover: edit that file)
 
 const ROOT = path.resolve(__dirname, '..');
 const REPORTS = path.join(ROOT, 'output', 'reports');
@@ -28,9 +29,9 @@ const SOURCE = path.join(ROOT, 'data', 'raw', 'commission-output');
 const RATES = path.join(ROOT, 'data', 'raw', 'menu-rates');
 const LOGS = path.join(ROOT, 'logs');
 const UPLOADS = path.join(ROOT, 'uploads');
-const TRACKER = path.join(REPORTS, 'Deliveroo_Q3_Rate_Tracker.html');
+const TRACKER = path.join(REPORTS, `Deliveroo_${CQ.QN}_Rate_Tracker.html`);
 const RISK = path.join(REPORTS, 'Deliveroo_PfP_Risk_Mockup.html');
-const XLSX = path.join(REPORTS, 'Deliveroo_Q3_Rate_Tracker.xlsx');
+const XLSX = path.join(REPORTS, `Deliveroo_${CQ.QN}_Rate_Tracker.xlsx`);
 const STATUS = path.join(LOGS, 'status.json');
 const LOCK = path.join(LOGS, 'refresh.lock');
 
@@ -119,7 +120,7 @@ app.post('/api/upload', (req, res) => {
     try {
       await Promise.all(writes);
       if (failed) return res.status(400).json({ error: failed });
-      const quarter = /^Q[1-4]$/.test(fields.quarter || '') ? fields.quarter : 'Q3';
+      const quarter = /^Q[1-4]$/.test(fields.quarter || '') ? fields.quarter : CQ.QN;
       const year = new Date().getFullYear();
       const out = { archived: [], installed: [] };
 
@@ -143,12 +144,13 @@ app.post('/api/upload', (req, res) => {
       out.archived = Object.values(saved).map(p => path.relative(ROOT, p));
       if (!out.installed.length) return res.status(400).json({ error: 'No file received — attach the Commission Output CSV (and/or the rate card).' });
 
-      // The per-quarter scripts are Q3's; other quarters are stored for the rollover but not built.
-      if (quarter === 'Q3' && saved.commission_csv) {
+      // Only the current quarter (scripts/lib/current_quarter.js) has build scripts; other quarters
+      // are stored for the rollover but not built.
+      if (quarter === CQ.QN && saved.commission_csv) {
         startRefresh('upload', ['--full']);
         out.refresh = 'full refresh started (validate → views → BigQuery → HTML)';
       } else if (saved.commission_csv) {
-        out.refresh = `stored only — the pipeline currently builds Q3; ${quarter} scripts are the quarterly-rollover step (see CLAUDE.md)`;
+        out.refresh = `stored only — the pipeline currently builds ${CQ.QN}; ${quarter} scripts are the quarterly-rollover step (see CLAUDE.md)`;
       } else {
         out.refresh = 'rate card stored (reference input — no rebuild needed)';
       }
@@ -194,7 +196,7 @@ app.get('/risk', (_req, res) => {
 });
 app.get('/download/xlsx', (_req, res) => {
   if (!fs.existsSync(XLSX)) return res.status(404).send('not built yet');
-  res.download(XLSX, 'Deliveroo_Q3_Rate_Tracker.xlsx');
+  res.download(XLSX, `Deliveroo_${CQ.QN}_Rate_Tracker.xlsx`);
 });
 
 // ---- pages ----
@@ -294,7 +296,7 @@ async function tick(){
   const parts = [];
   parts.push('<span>Last refreshed <b>'+fmtAgo(st.lastRun)+'</b></span>');
   const p = st.pfp || {};
-  if(p.elapsed) parts.push('<span>Q3 day <b>'+p.elapsed+'</b> of 92</span>');
+  if(p.elapsed) parts.push('<span>${CQ.QN} day <b>'+p.elapsed+'</b> of '+(p.days||${CQ.days})+'</span>');
   if(p.atRisk!=null) parts.push('<span><b>'+p.atRisk+'</b> menus at risk · <b>'+gbp(p.riskGbp)+'</b>/qtr exposure</span>');
   if(p.improving!=null) parts.push('<span><b>'+p.improving+'</b> improving · <b>'+gbp(p.oppGbp)+'</b>/qtr opportunity</span>');
   if(st.message && st.result==='error') parts.push('<span style="color:var(--err)">'+st.message+'</span>');
@@ -352,7 +354,7 @@ const inputsPage = (user, canRefresh) => `<!doctype html>
     ${canRefresh ? '' : '<p class="hint" style="color:var(--warn)">Your account is view-only — uploading is limited to the refresh tier (ask Finance).</p>'}
     <form id="f"${canRefresh ? '' : ' class="disabled"'}>
       <label>Quarter</label>
-      <select name="quarter"><option>Q3</option><option>Q4</option></select>
+      <select name="quarter"><option>${CQ.QN}</option><option>${CQ.nextQN}</option></select>
       <label>Commission Output CSV (existing sites)</label>
       <input type="file" name="commission_csv" accept=".csv">
       <label>New-sites rate card (.md, optional)</label>

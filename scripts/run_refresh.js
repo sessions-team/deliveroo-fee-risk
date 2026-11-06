@@ -2,20 +2,23 @@
 // (Modelled on Platform-weekly-dashboard's scripts/run_refresh.js — same lock/log/status.json
 // contract, different stages.)
 //
+// The quarter it builds ("Q4" etc.) comes from scripts/lib/current_quarter.js — the only file
+// to update at a quarterly rollover once the new Q{n} scripts exist (CLAUDE.md §9).
+//
 // Default (daily cron / "Refresh now" button) — data refresh only:
-//   1. scripts/build_q3_views.js     — rolling-4 rate check + distributions (weekly statements)
+//   1. scripts/build_q{n}_views.js   — rolling-4 rate check + distributions (weekly statements)
 //   2. scripts/build_pfp_risk.js     — quarter-to-date PfP metrics from BigQuery (ADC)
-//   3. scripts/build_q3_html.js (+ build_pfp_risk_html.js) — rebuild the HTML reports
+//   3. scripts/build_q{n}_html.js (+ build_pfp_risk_html.js) — rebuild the HTML reports
 //
 // --full (after a quarterly Commission Output upload, or first deploy) prepends:
-//   0a. scripts/build_id_name_map.js         — refresh the Roo Hub ID→name registry (BigQuery)
-//   0b. Validate-Q3ExistingSites.ps1 (pwsh)  — validate the newest commission CSV vs contract,
-//       writing output/analysis/Q3_existing-sites_BY-SITE.csv (explicit args: the script's default
+//   0a. scripts/build_id_name_map.js           — refresh the Roo Hub ID→name registry (BigQuery)
+//   0b. Validate-Q{n}ExistingSites.ps1 (pwsh)  — validate the newest commission CSV vs contract,
+//       writing output/analysis/Q{n}_existing-sites_BY-SITE.csv (explicit args: the script's default
 //       param paths are Windows-style and must not be relied on under Linux).
 //
 // Safety: single-run lock (logs/refresh.lock), per-run log (logs/refresh-<ts>.log), compact
 // summary for the web UI in logs/status.json. Stage-2 BigQuery failure is NON-fatal: the HTML
-// rebuilds with the previous q3_pfp_risk_data.json rather than serving nothing.
+// rebuilds with the previous q{n}_pfp_risk_data.json rather than serving nothing.
 //
 // Usage: node scripts/run_refresh.js [--full]
 
@@ -23,6 +26,7 @@ require('dotenv').config({ quiet: true });
 const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
+const CQ = require('./lib/current_quarter'); // which quarter's scripts/files to run (rollover: edit that file)
 
 const ROOT = path.resolve(__dirname, '..');
 const SOURCE = path.join(ROOT, 'data', 'raw', 'commission-output');
@@ -30,7 +34,10 @@ const ANALYSIS = path.join(ROOT, 'output', 'analysis');
 const LOGS = path.join(ROOT, 'logs');
 const LOCK = path.join(LOGS, 'refresh.lock');
 const STATUS = path.join(LOGS, 'status.json');
-const PFP_JSON = path.join(ANALYSIS, 'q3_pfp_risk_data.json');
+const PFP_JSON = path.join(ANALYSIS, `${CQ.qn}_pfp_risk_data.json`);
+const VALIDATOR = `Validate-${CQ.QN}ExistingSites.ps1`;
+const VIEWS = `build_${CQ.qn}_views.js`;
+const HTML = `build_${CQ.qn}_html.js`;
 
 const LOCK_STALE_MS = 2 * 60 * 60 * 1000; // a run older than 2h is treated as hung
 const full = process.argv.includes('--full');
@@ -79,7 +86,7 @@ function pwshBin() {
 
 // Newest quarterly Commission Output CSV (uploads land with the date in the name).
 function newestCommissionCsv() {
-  const re = /^Q3_existing-sites_commission_output_.*\.csv$/;
+  const re = new RegExp(`^${CQ.QN}_existing-sites_commission_output_.*\\.csv$`);
   const hits = fs.readdirSync(SOURCE).filter(n => re.test(n)).sort();
   return hits.length ? path.join(SOURCE, hits[hits.length - 1]) : null;
 }
@@ -95,7 +102,7 @@ function buildStatus(base) {
       atRisk: d.kpis.atRisk, riskGbp: d.kpis.riskGbp,
       improving: d.kpis.improving, oppGbp: d.kpis.oppGbp,
       measurable: d.kpis.measurable, sites: d.kpis.sites,
-      elapsed: d.kpis.elapsed, dataThrough: d.kpis.maxD,
+      elapsed: d.kpis.elapsed, dataThrough: d.kpis.maxD, days: d.qDays,
     };
   } catch { /* PfP JSON not built yet */ }
   return status;
@@ -117,27 +124,27 @@ try {
     if (nm.code !== 0) { warnings.push('ID→name registry refresh failed — validation will fall back to the previous quarter\'s map only'); out(`\n⚠ ${warnings.at(-1)}\n`); }
 
     // Stage 0b — contract validation of the newest Commission Output CSV
-    hr('STAGE 0b — validate commission output vs contract (Validate-Q3ExistingSites.ps1)');
+    hr(`STAGE 0b — validate commission output vs contract (${VALIDATOR})`);
     const input = newestCommissionCsv();
-    if (!input) throw fail('error', 'No Q3 Commission Output CSV found in data/raw/commission-output/ — upload one via /inputs.', 'validate');
+    if (!input) throw fail('error', `No ${CQ.QN} Commission Output CSV found in data/raw/commission-output/ — upload one via /inputs.`, 'validate');
     const ps = pwshBin();
     if (!ps) throw fail('error', 'PowerShell (pwsh) is not installed — cannot run the contract validator.', 'validate');
     out(`validator: ${ps}  input: ${path.basename(input)}\n`);
     // -ExecutionPolicy Bypass is process-scoped: Windows PowerShell blocks -File otherwise;
     // pwsh on Linux accepts and ignores it.
-    const v = runCmd(ps, ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(__dirname, 'Validate-Q3ExistingSites.ps1'),
+    const v = runCmd(ps, ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', path.join(__dirname, VALIDATOR),
       '-InputCsv', input,
-      '-NameMapCsv', path.join(SOURCE, 'Q2_existing-sites_commission_output_2026-04-08.csv'),
+      '-NameMapCsv', path.join(SOURCE, CQ.nameMapCsv), // last Commission Output that carried Site names
       '-HubMapCsv', path.join(ROOT, 'data', 'reference', 'deliveroo_id_name_map.csv'),
       '-OutDir', ANALYSIS,
-    ], 'Validate-Q3ExistingSites.ps1');
+    ], VALIDATOR);
     if (v.code !== 0) throw fail('error', `Contract validation failed (exit ${v.code}) — see the run log.`, 'validate');
   }
 
   // Stage 1 — rate-check views + Excel (weekly statements via PLATFORM_KPI_DIR / drive mirror)
-  hr('STAGE 1 — rate-check views (scripts/build_q3_views.js)');
-  const views = runNode('build_q3_views.js');
-  if (views.code !== 0) throw fail('error', `build_q3_views.js failed (exit ${views.code}) — statements mirror reachable? BY-SITE built?`, 'views');
+  hr(`STAGE 1 — rate-check views (scripts/${VIEWS})`);
+  const views = runNode(VIEWS);
+  if (views.code !== 0) throw fail('error', `${VIEWS} failed (exit ${views.code}) — statements mirror reachable? BY-SITE built?`, 'views');
 
   // Stage 2 — PfP metrics from BigQuery. Non-fatal: keep serving the previous JSON.
   hr('STAGE 2 — PfP fee-risk metrics from BigQuery (scripts/build_pfp_risk.js)');
@@ -145,9 +152,9 @@ try {
   if (pfp.code !== 0) { warnings.push('BigQuery PfP refresh failed — fee-risk tab keeps the previous data'); out(`\n⚠ ${warnings.at(-1)}\n`); }
 
   // Stage 3 — HTML reports
-  hr('STAGE 3 — rebuild HTML (scripts/build_q3_html.js + build_pfp_risk_html.js)');
-  const html = runNode('build_q3_html.js');
-  if (html.code !== 0) throw fail('error', `build_q3_html.js failed (exit ${html.code})`, 'html');
+  hr(`STAGE 3 — rebuild HTML (scripts/${HTML} + build_pfp_risk_html.js)`);
+  const html = runNode(HTML);
+  if (html.code !== 0) throw fail('error', `${HTML} failed (exit ${html.code})`, 'html');
   const riskHtml = runNode('build_pfp_risk_html.js');
   if (riskHtml.code !== 0) { warnings.push('standalone fee-risk page rebuild failed (tracker tab is fine)'); out(`\n⚠ ${warnings.at(-1)}\n`); }
 

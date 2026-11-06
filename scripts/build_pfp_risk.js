@@ -4,7 +4,7 @@
 // re-measured by Deliveroo every quarter and set next quarter's rate. This script computes each
 // site's quarter-to-date metrics from BigQuery, maps them onto the contract band tables, and
 // compares the projected next-quarter adjustment with the adjustment currently applied
-// (output/analysis/Q3_existing-sites_BY-SITE.csv).
+// (output/analysis/Q{n}_existing-sites_BY-SITE.csv — the quarter comes from scripts/lib/current_quarter.js).
 //
 // Metric sources (project sessions-core-data, dataset deliveroo), validated against the raw
 // per-site values on Deliveroo's Q3 Commission Output:
@@ -20,7 +20,7 @@
 // Platform-weekly-dashboard fetch. BQ client is borrowed from that project's node_modules.
 //
 // Usage: node scripts/build_pfp_risk.js
-// Writes output/analysis/q3_pfp_risk_data.json and output/reports/Deliveroo_PfP_Risk_Mockup.html.
+// Writes output/analysis/q{n}_pfp_risk_data.json (the standalone page is built by build_pfp_risk_html.js).
 
 const fs = require('fs');
 const path = require('path');
@@ -31,8 +31,13 @@ const REPORTS = path.join(ROOT, 'output', 'reports');
 
 const PROJECT_ID = process.env.BQ_PROJECT_ID || 'sessions-core-data';
 const LOCATION = process.env.BQ_LOCATION || 'europe-west2';
-const Q_START = '2026-07-01', Q_END = '2026-09-30', Q_DAYS = 92;
-const QUARTER = 'Q3 2026', NEXT_QUARTER = 'Q4 2026';
+// Current quarter — scripts/lib/current_quarter.js is the one place updated at a rollover.
+const CQ = require('./lib/current_quarter');
+const Q_START = CQ.start, Q_END = CQ.end, Q_DAYS = CQ.days;
+const QUARTER = CQ.label, NEXT_QUARTER = CQ.nextLabel;
+const BY_SITE_CSV = `${CQ.QN}_existing-sites_BY-SITE.csv`;
+const RATE_CHECK_CSV = `${CQ.qn}_rolling4_rate_check_by_menu.csv`;
+const OUT_JSON = `${CQ.qn}_pfp_risk_data.json`;
 const LOW_VOLUME = 30; // delivered orders below which metrics are marked low-confidence
 
 // ---- contract band tables (CONTRACTED-RATES.md §1b) ----
@@ -119,7 +124,7 @@ const num = v => (v == null || v === '' ? null : typeof v === 'object' && 'value
 const r1 = v => (v == null ? null : Math.round(v * 10) / 10);
 const r2 = v => (v == null ? null : Math.round(v * 100) / 100);
 
-// Same canonical name key + manual aliases as build_q3_views.js, so both tabs agree on
+// Same canonical name key + manual aliases as the build_q{n}_views.js scripts, so both tabs agree on
 // which menu is which.
 const canon = s => String(s || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '');
 function loadAliasMap() {
@@ -143,30 +148,43 @@ async function main() {
   const [rows] = await bq.query({ query: SQL, location: LOCATION });
   console.log(`  ${rows.length} sites with delivered orders`);
 
-  // Current-quarter adjustments as applied by Deliveroo (from the Q3 Commission Output).
-  const bySite = parseCsv(fs.readFileSync(path.join(OUT, 'Q3_existing-sites_BY-SITE.csv'), 'utf8'));
+  // Current-quarter adjustments as applied by Deliveroo (from this quarter's Commission Output).
+  const bySite = parseCsv(fs.readFileSync(path.join(OUT, BY_SITE_CSV), 'utf8'));
   const current = new Map(bySite.map(r => [String(Number(r.RestaurantID)), r]));
 
-  // Restrict to the same menu universe as the rate-check tab (q3_rolling4_rate_check_by_menu.csv),
+  // Restrict to the same menu universe as the rate-check tab (q{n}_rolling4_rate_check_by_menu.csv),
   // so both tabs quote the same total. Join: rate-check menu name -> alias/canon -> BY-SITE Site
   // name -> Restaurant ID -> BQ site.
+  // Until the quarter's rates are effective (its first ~2 weeks) the rate-check has no weeks and
+  // that CSV is empty — fall back to every NAMED site on the Commission Output so the fee-risk
+  // view is useful from day 1. It narrows to the rate-check universe by itself once the first
+  // effective statement week lands.
   const aliasMap = loadAliasMap();
   const matchKey = s => aliasMap[canon(s)] || canon(s);
-  const rateCheck = parseCsv(fs.readFileSync(path.join(OUT, 'q3_rolling4_rate_check_by_menu.csv'), 'utf8'));
-  const wantedNames = new Set(rateCheck.map(r => matchKey(r.menu)));
+  const rateCheck = parseCsv(fs.readFileSync(path.join(OUT, RATE_CHECK_CSV), 'utf8'));
+  const preEffective = rateCheck.length === 0;
   const allowedRids = new Set();
-  const foundNames = new Set();
-  for (const r of bySite) {
-    const k = canon(r.Site);
-    if (wantedNames.has(k)) { allowedRids.add(String(Number(r.RestaurantID))); foundNames.add(k); }
+  let universeNote;
+  if (preEffective) {
+    for (const r of bySite) if (r.Named === 'True') allowedRids.add(String(Number(r.RestaurantID)));
+    universeNote = `pre-effective fallback: ${allowedRids.size} named sites on the ${CQ.QN} Commission Output`;
+    console.log(`  NOTE: ${RATE_CHECK_CSV} has no menus yet (no ${CQ.QN}-effective statement weeks) — using every named site on the Commission Output instead`);
+  } else {
+    const wantedNames = new Set(rateCheck.map(r => matchKey(r.menu)));
+    const foundNames = new Set();
+    for (const r of bySite) {
+      const k = canon(r.Site);
+      if (wantedNames.has(k)) { allowedRids.add(String(Number(r.RestaurantID))); foundNames.add(k); }
+    }
+    const unmapped = [...wantedNames].filter(k => !foundNames.has(k));
+    if (unmapped.length) console.log(`  WARNING: ${unmapped.length} rate-check menus not found in BY-SITE (excluded): ${unmapped.slice(0, 5).join(', ')}`);
+    universeNote = `${rateCheck.length} rate-check menus -> ${allowedRids.size} Restaurant IDs`;
   }
-  const unmapped = [...wantedNames].filter(k => !foundNames.has(k));
-  if (unmapped.length) console.log(`  WARNING: ${unmapped.length} rate-check menus not found in BY-SITE (excluded): ${unmapped.slice(0, 5).join(', ')}`);
   const before = rows.length;
   const kept = rows.filter(r => allowedRids.has(String(num(r.rid))));
   const missingBq = allowedRids.size - kept.length;
-  if (missingBq > 0) console.log(`  NOTE: ${missingBq} rate-checked menus have no delivered orders in BQ this quarter yet`);
-  console.log(`  universe: ${rateCheck.length} rate-check menus -> ${allowedRids.size} Restaurant IDs -> ${kept.length} BQ sites (${before - kept.length} out-of-scope sites dropped)`);
+  if (missingBq > 0) console.log(`  NOTE: ${missingBq} in-scope sites have no delivered orders in BQ this quarter yet`);
+  console.log(`  universe: ${universeNote} -> ${kept.length} BQ sites (${before - kept.length} out-of-scope sites dropped)`);
   rows.length = 0; rows.push(...kept);
   // The most common Raw_* triple is Deliveroo's group-level fallback (sites without their own measurement).
   const tripleCount = new Map();
@@ -197,7 +215,7 @@ async function main() {
     const isNew = !cur;
     const curAdj = cur
       ? { rwt: num(cur.RWT), mi: num(cur.OrderInacc), oh: num(cur.OpenHours), jbp: num(cur.JBP) || 0, aov: num(cur.AOV) || 0 }
-      // New-in-Q3 sites sit on the new-site rate card: headline −1.50 (−0.50 JBP + −1.00 ops).
+      // Sites not on the Commission Output (launched this quarter) sit on the new-site rate card: headline −1.50 (−0.50 JBP + −1.00 ops).
       : { rwt: null, mi: null, oh: null, jbp: -0.5, aov: 0 };
     const curThree = cur ? r1(curAdj.rwt + curAdj.mi + curAdj.oh) : -1.0;
     const onGroupRate = !!cur && `${cur.Raw_RWT_pct}|${cur.Raw_OrderInacc_pct}|${cur.Raw_OpenHours_pct}` === groupTriple;
@@ -250,13 +268,14 @@ async function main() {
     elapsed, maxD,
   };
 
-  const data = { quarter: QUARTER, nextQuarter: NEXT_QUARTER, qStart: Q_START, qEnd: Q_END,
+  const data = { quarter: QUARTER, nextQuarter: NEXT_QUARTER, qStart: Q_START, qEnd: Q_END, qDays: Q_DAYS,
+    universe: preEffective ? 'commission-output (pre-effective fallback)' : 'rate-check',
     lowVolumeThreshold: LOW_VOLUME,
     generated: new Date().toISOString().slice(0, 10), portfolio, groupNow, kpis, sites };
-  fs.writeFileSync(path.join(OUT, 'q3_pfp_risk_data.json'), JSON.stringify(data, null, 1));
+  fs.writeFileSync(path.join(OUT, OUT_JSON), JSON.stringify(data, null, 1));
   console.log(`  portfolio: rider wait ${portfolio.rwt}% | missing items ${portfolio.mi}% | open at peak ${portfolio.oh}%`);
   console.log(`  at risk: ${kpis.atRisk} sites (£${kpis.riskGbp.toLocaleString()}/qtr) | improving: ${kpis.improving} (£${kpis.oppGbp.toLocaleString()}/qtr)`);
-  console.log(`  wrote output/analysis/q3_pfp_risk_data.json — now run scripts/build_pfp_risk_html.js`);
+  console.log(`  wrote output/analysis/${OUT_JSON} — now run scripts/build_pfp_risk_html.js`);
 }
 
 main().catch(e => { console.error('FATAL:', e.message); process.exit(1); });

@@ -2360,7 +2360,7 @@ restaurant_id,name
 636778,SMASHED - Burgers & Sides - Greenford
 636779,Smashed - Burgers & Fries @ Tanzees
 636780,Rudi's - Burgers & Sides @ Cafe Grill - St Albans
-636781,SMASHED - Burgers & Fries - Weymouth
+636781,Smashed @ Daniel's Fish and Chips - Weymouth
 636782,SMASHED - Burgers & Fries - Victoria Park
 636783,Japanika - Wood Green (Old)
 636784,SMASHED - Burgers & Fries - Glasgow
@@ -2473,7 +2473,7 @@ restaurant_id,name
 640660,SoBe Burger - Whitley Wood Rd
 640661,Patty Guy - Whitley Wood Rd
 640662,Chick'N'Bun - Whitley Wood Rd
-640663,SMASHED - Burgers & Fries @ Burger in law
+640663,Smashed @ Burger-in-Law - Gravesend
 640664,SMASHED - Burgers & Fries @ Goodfellas Kebab and Grill House - Drayton
 640665,Rola Wala - Manchester 2
 640666,Lucky Chip Burgers - Deansgate Manchester
@@ -2543,7 +2543,7 @@ restaurant_id,name
 642664,Patty Guy @ Nomas Gastrobar
 642665,WingDrop @ Bagel Bite - Shepherds Bush
 642668,SMASHED - Burgers & Fries @ Dada's Diner
-642669,Rudi's - Burgers & Sides @ Samys Grill
+642669,Rudi's Burgers @ Samy's Grill - Bristol
 642670,Chick'N'Bun @ Zena's - Bedminster 12/06/2024
 642671,WingDrop @ Samys Grill
 642672,Sidney's @ Samys Grill
@@ -4343,7 +4343,7 @@ restaurant_id,name
 738679,Mikos Gyros @ BunHub Burger - Chesterfield
 738680,Mikos Gyros @ Avon Brewery - Salisbury
 738681,Mikos Gyros @ Rosmarinos Pizza - Didcot
-738682,Mikos Gyros @ The Wig - Aberdeen
+738682,Mikos Gyros @ The Wig
 738683,Rudi's @ Pizza Club - Telford
 738684,WingDrop @ Franzos Coventry 20/08
 738685,Mikos Gyros @ Peri Peri Original - Newport Pagnell
@@ -4533,7 +4533,7 @@ restaurant_id,name
 747693,Hawkins Diner @ The Eden Lounge - Harrow
 747694,Hawkins Diner @ Nonnos Pizza - Wood Green/ Crouch End
 747695,Hawkins Diner @ Messy Chef Express - Havant
-747696,Hawkins Diner - Round Hill
+747696,Hawkins @ Chicks Brighton
 747697,Hawkins Diner @ The Falstaff - Plymouth
 747698,Hawkins Diner @ Planet Pizza - Surbiton
 747699,Hawkins Diner @ Herbies Pizza - Bracknell
@@ -4601,7 +4601,7 @@ restaurant_id,name
 747761,Hawkins Diner @ Bulls n Birds - Ilford
 747762,Hawkins Diner - Central Gloucester & Hempsted
 747763,Hawkins Diner @ Bagel Bite - Shepherds Bush
-747764,Hawkins Diner - Epsom Town
+747764,Hawkins @ American Pizza - Epsom
 747765,Hawkins Diner @ Waaghoba - Norwich
 747766,Hawkins Diner @ Chak 19 Burgers- Norbury
 747767,Hawkins Diner @ Pam Pam Diner - Forest Gate
@@ -4671,7 +4671,7 @@ restaurant_id,name
 753426,Hawkins Diner - Potters Bar Oakmere
 753432,Hawkins Diner @ Mr Kebabish - Sydenham
 753433,Hawkins Diner @ Herbies Pizza - Fareham
-753434,Hawkins Diner - Portishead South
+753434,Hawkins Diner @ Toppin'z Limited - Portishead
 753435,Hawkins Diner - Hainault East
 753436,Hawkins Diner @ Grill spot & pizza - Peckham
 753437,Hawkins Diner @ Papa Chinos - Altrincham
@@ -5058,7 +5058,7 @@ restaurant_id,name
 770034,Hawkins Diner - Shrewsbury Town
 770035,Hawkins Diner - Neasden
 770037,Hawkins Diner - Millwall North
-770038,Hawkins Diner - Gorse Hill
+770038,Hawkins @ Frankies Stretford
 770039,Hawkins Diner - Woodfield & Old Town
 770041,Hawkins Diner - Cauldwell
 770042,Hawkins Diner - Twickenham North
@@ -5382,7 +5382,7 @@ restaurant_id,name
 784082,Little Bao Boy @ Bearwood Pizza - Smethwick
 784083,Rudi's Burgers @ Amchur Restaurant & Bar - Old Windsor
 784084,BANGTAN - Korean Fried Chicken @ Koottaan Curry Club - Taunton
-784085,LAFFA - Shawarma Falafel and Wraps @ Anatolia kebabs - Epsom
+784085,Laffa @ Anatolia
 784086,Mikos Gyros @ Dixy Chicken - Coventry
 784087,Wing Wing @ Anatolia kebabs - Epsom
 784090,Wing Wing - Tooting
@@ -5392,7 +5392,7 @@ restaurant_id,name
 785408,Little Bao Boy @ Fonzies Smash Burger and Grill
 788726,Hawkins Diner @ Chicken World - Mottingham
 788727,Hawkins Diner @ Tops Pizza - Ipswich
-788728,Hawkins Diner @ Biryani Boys - Edinburgh
+788728,Hawkins @ Biryani Boys
 790600,LAFFA - Shawarma Falafel and Wraps @ Lion's Den Wings World - New Cross
 790602,Wing Wing @ Smashburg - Durham
 790603,Smashed @ Munchies - Bexleyheath
@@ -5425,7 +5425,7 @@ restaurant_id,name
 790632,LAFFA - Shawarma Falafel and Wraps @ Dixy Chicken - Smethwick
 790634,WingDrop @ Chickeeza - Stanmore
 790635,Rudi's Burgers @ Chickeeza - Stanmore
-790638,LAFFA - Shawarma Falafel and Wraps @ Brunch American Inspired - Stratford
+790638,LAFFA - Shawarma Falafel and Wraps @ Brunch American Inspired
 790639,Wing Wing @ Gokorec - Edmonton
 790640,Smashed @ Burgasum - Canning Town
 790641,Wing Wing @ Burgasum - Canning Town
@@ -5451,7 +5451,7 @@ restaurant_id,name
 795095,LAFFA - Shawarma Falafel and Wraps @ Wraps and Wings- Waterloo
 795096,Wing Wing @ Pizzaverse - Nine Elms
 795097,SoBe Burger @ Peri Peri Cottage - Uxbridge
-795098,LAFFA - Shawarma Falafel and Wraps @ Smokin' Grill Steakhouse- Purley
+795098,LAffa @ smokin Grill Steakhouse
 795099,LAFFA - Shawarma Falafel and Wraps @ British Fried Chicken - West Wickham
 795100,SoBe Burger @ Ularoo - Carlisle
 795101,LAFFA - Shawarma Falafel and Wraps @ Bell Bottom Eatery - Edinburgh
@@ -5539,7 +5539,7 @@ restaurant_id,name
 795200,LAFFA - Shawarma Falafel and Wraps @ On a Roll - Bristol
 795201,LAFFA - Shawarma Falafel and Wraps @ Pizza2Night - Reading
 795202,LAFFA - Shawarma Falafel and Wraps @ Tasty - Oval
-795203,LAFFA - Shawarma Falafel and Wraps @ The Pizza Guru - Rugby
+795203,Laffa @ Pizza Guru Rugby
 795205,Chick'n'Sours @ Route1 Burger & Doner Kebab - Romford
 795209,LAFFA - Shawarma Falafel and Wraps @ Cottage Peri Peri Chicken - Shepperton
 795210,LAFFA - Shawarma Falafel and Wraps @ Corner Plaice - High Wycombe
@@ -5595,7 +5595,7 @@ restaurant_id,name
 795269,Smashed @ Pitta Hub - Stevenage
 795270,SoBe Burger @ Dutch Delights - Leatherhead
 795271,Doner Shack @ New India - Bromley
-795272,LAFFA - Shawarma Falafel and Wraps @ Maeme's Piri Piri - Bournemouth
+795272,Laffa @ maeme's
 795275,Smashed @ Chicken Guys - Edgeware
 795276,LAFFA - Shawarma Falafel and Wraps @ Chicken Guys - Edgeware
 795277,SoBe Burger @ Pam Pam Diner - Forest Gate
@@ -5694,7 +5694,7 @@ restaurant_id,name
 797980,Smashed @ Momo and Me/ Smashsmiths -Colchester
 797981,Wing Wing - Korean Fried Chicken @ Burger Plus - Farnborough
 797982,Smashed @ Burger Plus - Farnborough
-797983,LAFFA - Shawarma Falafel and Wraps @ Burger Plus - Farnborough
+797983,Laffa @ Burger Plus
 797984,Smashed @ Hyderabad Biryani and Grill Co/ Tap and Toast - Newport
 797985,LAFFA - Shawarma Falafel and Wraps @ Hyderabad Biryani and Grill Co/ Tap and Toast - Newport
 797986,Rudi's Burgers @ Indie Eats - Huddersfield
@@ -5707,7 +5707,7 @@ restaurant_id,name
 797995,Smashed @ Burger Drop - Fallowfield
 797997,BANGTAN - Korean Fried Chicken @ Nemo's Fish Bar - Anerley
 797998,Little Bao Boy - Baos and Bowls @ Nemo's Fish Bar - Anerley
-798000,LAFFA - Shawarma Falafel and Wraps @ Burger Drop - Fallowfield
+798000,Laffa @ Burger Drop
 798001,LAFFA - Shawarma Falafel and Wraps @ Space Theatre Bar - Canary Wharf
 798002,Wing Wing - Korean Fried Chicken @ Space Theatre Bar - Canary Wharf
 798003,LAFFA - Shawarma Falafel and Wraps @ Bun n Dough - Digbeth
@@ -5899,15 +5899,15 @@ restaurant_id,name
 809228,Smashed @ V5 Favourite Chicken - Banbury
 809229,Mikos Gyros @ Chicken Cottage - Orpington
 809230,LAFFA - Shawarma Falafel and Wraps @ Hungry Birds - Tilehurst
-809232,Smashed @ Chicken Cottage - Edinburgh
+809232,Smashed - Gorgie West
 809233,BANGTAN - Korean Fried Chicken @ MUNCHICKEN - BROMLEY
-809234,Wing Wing - Korean Fried Chicken @ Chicken Cottage - Edinburgh
+809234,Wing Wing - Krispy Fried Chicken - Gorgie West
 809235,LAFFA - Shawarma Falafel and Wraps @ Chicken Cottage - Edinburgh
 809236,SoBe Burger @ MUNCHICKEN - BROMLEY
 809237,Hawkins Diner @ MIKOS Gyros - Shoreditch
 809238,Wing Wing - Korean Fried Chicken @ Hungry Birds - Tilehurst
 809239,Smashed @ Hungry Birds - Tilehurst
-809240,Rudi's Burgers @ Premier - Norwich
+809240,Rudi's Burgers@ Premier - Norwich
 809241,SoBe Burger @ Perifry's - Crawley
 809242,Little Bao Boy - Baos and Bowls @ Perifry's - Crawley
 809243,BANGTAN - Korean Fried Chicken @ Perifry's - Crawley
@@ -5935,20 +5935,20 @@ restaurant_id,name
 809690,WingDrop @ Tam Smashburger - Northwood
 809691,Bun & Sum @ Smokin' Grill Steakhouse- Purley
 809692,LAFFA - Shawarma Falafel and Wraps @ Elai Salisbury
-809693,Little Bao Boy - Baos and Bowls @ Tam Smashburger - Northwood
+809693,Little Bao Boy @ Tem Peri
 809694,Wing Wing - Korean Fried Chicken @ Elai Salisbury
 809695,Smashed @ Notty Desserts Ltd - Nottingham
 809696,Wing Wing - Korean Fried Chicken @ Notty Desserts Ltd - Nottingham
 809697,LAFFA - Shawarma Falafel and Wraps @ Notty Desserts Ltd - Nottingham
 809698,Bun & Sum @ New India - Bromley (FlipnDip)
 809699,Smashed @ Elai Salisbury
-809700,SoBe Burger @ Tam Smashburger - Northwood
+809700,Sobe Burger @ Tam Peri
 809701,Bun & Sum @ Desi Indian Bites - Reading
 810699,Smashed @ Exotic Spice - Stockport
 810701,SoBe Burger @ American Fried Chicken - Bolton
 810702,BANGTAN - Korean Fried Chicken @ Perilicious Cardiff
 810703,SoBe Burger @ New Home Pizza - Watford
-810704,BANGTAN - Korean Fried Chicken @ American Fried Chicken - Bolton
+810704,Bangtan @ American Fried Bolton
 810707,Little Bao Boy - Baos and Bowls @ American Fried Chicken - Bolton
 810708,Wing Wing - Korean Fried Chicken @ Exotic Spice - Stockport
 810710,BANGTAN - Korean Fried Chicken @ New Home Pizza - Watford
@@ -5976,7 +5976,7 @@ restaurant_id,name
 810734,Lucky B's Hot Chicken - Leamington Spa
 810735,Bun & Sum - Fulham
 810736,SoBe Burger @ Chilli Bites - Burgess Hill
-810737,BANGTAN - Korean Fried Chicken @ Chilli Bites - Burgess Hill
+810737,BANGTAN - Korean Fried Chicken
 810738,Little Bao Boy - Baos and Bowls @ Chilli Bites - Burgess Hill
 810739,Little Bao Boy - Baos and Bowls - Clayhall
 810740,SoBe Burger - Clayhall
@@ -6058,7 +6058,7 @@ restaurant_id,name
 815986,Wing Wing - Korean Fried Chicken @ Galitos Peri Peri - Tunbridge Wells
 815987,Rudi's Burgers @ Burgereato Limited - Birkenhead
 815988,Wing Wing - Korean Fried Chicken @ Nour - Walthamstow
-815989,Lucky B's @ Nonnos Pizza - Wood Green/ Crouch End
+815989,Lucky B's - Crouch End
 815990,Wing Wing - Korean Fried Chicken @ Seabreeze - Bushey
 815991,LAFFA - Shawarma Falafel and Wraps @ Galitos Peri Peri - Tunbridge Wells
 815992,LAFFA - Shawarma Falafel and Wraps @ Seabreeze - Bushey
@@ -6163,3 +6163,426 @@ restaurant_id,name
 820280,Hot Bird @ Taste Of Milan - Aldershot
 820281,LAFFA - Shawarma Falafel and Wraps @ 5G Burgers - Forest Hill
 820282,Wing Wing - Korean Fried Chicken @ 5G Burgers - Forest Hill
+823768,Lucky B's @ La Farina - Wimbledon
+823769,Little Bao Boy - Baos and Bowls @ Desi Indian Bites - Reading
+823770,WingDrop @ Perfect Chicken - Peckham
+823771,Mikos Gyros @ Perfect Chicken - Peckham
+823772,LAFFA - Shawarma Falafel and Wraps @ Buddi's Food Flavours - Hackney
+823773,Rudi's Burgers @ Perfect Chicken - Peckham
+823774,Wing Wing - Korean Fried Chicken @ Ocean Cafe - Coventry
+823776,Smashed @ Ocean Cafe - Coventry
+823777,LAFFA - Shawarma Falafel and Wraps @ Ocean Cafe - Coventry
+823778,Wing Wing - Korean Fried Chicken @ Buddi's Food Flavours - Hackney
+823780,Smashed @ Buddi's Food Flavours - Hackney
+823781,WingDrop @ Mishtidesh - Small Heath
+823782,Wing Wing - Korean Fried Chicken @ Rikshaw indian restaurant - Norwood
+823783,Mikos Gyros @ Mishtidesh - Small Heath
+823784,LAFFA - Shawarma Falafel and Wraps @ Rikshaw indian restaurant - Norwood
+823785,Smashed @ Rikshaw indian restaurant - Norwood
+823786,Rudi's Burgers @ Mishtidesh - Small Heath
+823787,Hawkins Diner @ Mishtidesh - Small Heath
+824323,Hawkins Diner @ Tennessee Express 2 - Northolt Park
+824324,Hawkins Diner @ The Bell - Greenwich
+824325,Hawkins Diner @ Sedgley Sizzlers - Dudley
+824326,Hawkins Diner @ Pizza on Fire - Battersea
+824327,Hawkins Diner @ Emparo Peri Peri - Southend
+824328,Hawkins Diner @ Shweet Treatz - Hatfield
+824329,Hawkins Diner @ Albany Foods - Coventry
+824330,Hawkins Diner @ Ikkayees - Liverpool
+826283,"Super Awesome Deluxe - Smashburgers, Fries & Sides - Fulham"
+826284,Little Bao Boy - Baos and Bowls @ Chicken Cottage - Wandsworth (new)
+826285,Rudi's Burgers @ Mimas Desserts - Eastbourne
+826287,"Super Awesome Deluxe - Smashburgers, Fries & Sides - Cambridge"
+826288,Little Bao Boy - Baos and Bowls @ Chicken N Burger
+826289,Smashed @ London Pizza Depot - Ilford
+826290,LAFFA - Shawarma Falafel and Wraps @ London Pizza Depot - Ilford
+826292,Wing Wing - Korean Fried Chicken @ London Pizza Depot - Ilford
+826293,"Super Awesome Deluxe - Smashburgers, Fries & Sides - Hitchin"
+826294,Smashed @ Little Venice Fish Bar
+826295,LAFFA - Shawarma Falafel and Wraps @ Little Venice Fish Bar
+826296,Wing Wing - Korean Fried Chicken @ Little Venice Fish Bar
+826297,SoBe Burger @ Herbies Pizza Basingstoke
+826298,Mikos Gyros @ Mimas Desserts - Eastbourne
+826299,WingDrop @ Mimas Desserts - Eastbourne
+826300,BANGTAN - Korean Fried Chicken @ Herbies Pizza Basingstoke
+826301,Mikos Gyros @ Peri Peri Original- West Drayton
+826302,WingDrop @ Dixy Chicken stoke newington
+826303,Rudi's Burgers @ Peri Peri Original- West Drayton
+826304,Little Bao Boy - Baos and Bowls @ Herbies Pizza Basingstoke
+826306,Smashed @ Big Munch - Cardiff
+826307,Wing Wing - Korean Fried Chicken @ Big Munch - Cardiff
+826308,WingDrop @ Peri Peri Original- West Drayton
+826309,LAFFA - Shawarma Falafel and Wraps @ Big Munch - Cardiff
+826310,Mikos Gyros @ Dixy Chicken stoke newington
+826311,Little Bao Boy - Baos and Bowls @ The Pizza Planet – Tonypandy
+826312,BANGTAN - Korean Fried Chicken @ The Pizza Planet – Tonypandy
+826313,SoBe Burger @ The Pizza Planet – Tonypandy
+826314,Smashed @ Bundem - Enfield
+826315,Wing Wing - Korean Fried Chicken @ Bundem - Enfield
+826316,LAFFA - Shawarma Falafel and Wraps @ Bundem - Enfield
+826317,Rudi's Burgers @ The Greek Station - Barry
+826318,Rudi's Burgers @ Dixy Chicken stoke newington
+826319,WingDrop @ The Greek Station - Barry
+826320,Little Bao Boy - Baos and Bowls @ Bombay Spice - Ware
+826321,Wing Wing - Korean Fried Chicken @ Food Court - Folkestone
+826322,BANGTAN - Korean Fried Chicken @ Bombay Spice - Ware
+826323,SoBe Burger @ Bombay Spice - Ware
+826324,"Super Awesome Deluxe - Smashburgers, Fries & Sides - Hounslow"
+826325,Smashed @ Pizzology - Whitefield
+826326,LAFFA - Shawarma Falafel and Wraps @ Food Court - Folkestone
+826327,Smashed @ Food Court - Folkestone
+826328,Mikos Gyros @ The Greek Station - Barry
+826329,Wing Wing - Korean Fried Chicken @ Pizzology - Whitefield
+826330,LAFFA - Shawarma Falafel and Wraps @ Pizzology - Whitefield
+826331,Super Awesome Deluxe @ Curryland - Peterborough
+826808,Hawkins Diner @ Frankies - Warrington
+826809,Hawkins Diner @ Day of the Raj - Mill Hill
+826810,Hawkins Diner @ Fusion Takeaway - Didcot
+826811,Hawkins Diner @ Chicken Cottage - Orpington
+826812,Hawkins Diner @ No Name Bar & Games - Colchester
+826813,Hawkins Diner @ Chuckies Smash Burgers
+826814,Hawkins Diner @ Safi King Burgers - Stockport
+826815,Hawkins Diner @ Indie Eats - Huddersfield
+826816,Hawkins Diner @ Rocket Joes Pizza World - Cwmbran
+826817,Hawkins Diner @ Gokorec - Tottenham
+827626,BANGTAN - Korean Fried Chicken @ Tam Smashburger - Northwood
+827627,Little Bao Boy - Baos and Bowls @ The Ceylon Express Dining
+827628,WingDrop @ Samir’s - Kingston
+827629,Little Bao Boy - Baos and Bowls @ Kebys - Walsall
+827630,BANGTAN - Korean Fried Chicken @ Kebys - Walsall
+827631,Rudi's Burgers @ Samir’s - Kingston
+827632,Mikos Gyros @ Samir’s - Kingston
+827633,SoBe Burger @ Kebys - Walsall
+827634,Little Bao Boy - Baos and Bowls @ Saffron And Silk
+827636,BANGTAN - Korean Fried Chicken @ Saffron And Silk
+827637,Little Bao Boy - Baos and Bowls @ Ash's Fish and Chicken Pizza All Kebabs - Milton Keynes
+827638,SoBe Burger @ Saffron And Silk
+827639,Little Bao Boy - Baos and Bowls @ Peri Peri Original - Leicester
+827640,"Super Awesome Deluxe - Smashburgers, Fries & Sides - Bedford"
+827641,LAFFA - Shawarma Falafel and Wraps @ Whody - Winchester
+827642,WingWing @ Whody - Winchester
+827643,"Super Awesome Deluxe - Smashburgers, Fries & Sides - Corby"
+827645,Little Bao Boy - Baos and Bowls @ Dolphin Fish And Kebabs - Edgware
+827649,SoBe Burger @ Dolphin Fish And Kebabs - Edgware
+827650,BANGTAN - Korean Fried Chicken @ Dolphin Fish And Kebabs - Edgware
+827655,Mikos Gyros @ Samir’s - Kingston 18/08
+830007,Smashed @ Eastleigh Dark Kitchen
+830008,Little Bao Boy - Baos and Bowls @ Schnitzel House/Pipasa - Morden
+830009,Rudi's Burgers @ joys chicken - Milton keynes
+830010,Mikos Gyros @ joys chicken - Milton keynes
+830011,WingDrop @ joys chicken - Milton keynes
+830012,SoBe Burger @ Schnitzel House/Pipasa - Morden
+830013,Hawkins Diner @ joys chicken - Milton keynes
+830014,BANGTAN - Korean Fried Chicken @ Schnitzel House/Pipasa - Morden
+830015,LAFFA - Shawarma Falafel and Wraps @ Eastleigh Dark Kitchen
+830016,Little Bao Boy - Baos and Bowls @ Kennington Grill - Ashford (Ashford Fast Food)
+830017,Wing Wing - Krispy Fried Chicken @ Eastleigh Dark Kitchen
+830018,Little Bao Boy - Baos and Bowls @ Peri Peri House - Bognor Regis
+830019,LAFFA - Shawarma Falafel and Wraps @ Burgaholic - Hornchurch
+830021,Little Bao Boy - Baos and Bowls @ BFC Peri Peri- Braintree (SoBe)
+830023,Little Bao Boy - Baos and Bowls @ Chapati Man - Whitechapel
+830024,Smashed @ Burgaholic - Hornchurch
+830025,Wing Wing - Krispy Fried Chicken @ Burgaholic - Hornchurch
+830026,Patty&Bun @ Karak Chaii - Leamington Spa
+830027,Rudi's Burgers @ Hook Line & Fryer - Cheltenham
+830028,WingDrop @ Hook Line & Fryer - Cheltenham
+830029,Patty&Bun @ Tacoritto - Salford
+830030,Rudi's Burgers @ Zaitoon - Upton Park
+830032,Patty&Bun @ Smashing Soundwell - Bristol
+830033,Little Bao Boy - Baos and Bowls @ Chicken N Burger 25/08
+830035,Mikos Gyros @ Hook Line & Fryer - Cheltenham
+830036,Mikos Gyros @ Zaitoon - Upton Park
+830037,WingDrop @ Zaitoon - Upton Park
+830038,SoBe Burger @ Sutton Burger & Burrito - Southend
+830039,Little Bao Boy - Baos and Bowls @ Sutton Burger & Burrito - Southend
+830040,BANGTAN - Korean Fried Chicken @ Sutton Burger & Burrito - Southend
+832864,Hawkins Diner @ Favorite Chicken St Albans
+832865,Hawkins @ Mimas
+832866,Hawkins Diner @ Cafe Grill - Luton
+832868,Hawkins Diner @ Super Pizza - Chertsey
+832869,Hawkins Diner @ Deli Delight - Wakefield
+832873,Hawkins Diner @ Holmesdale Fish Bar - Cardiff
+832876,Hawkins Diner @ Crazy Chips - Derby
+832877,Hawkins Diner @ New Haw Burger & Chicken - Byfleet
+832878,Hawkins Diner @ K-Hungry Bites 2 - Hemel Hampstead
+832879,Hawkins Diner @ T'z Peri Peri - Woodford
+832880,Hawkins Diner @ Mr Boba- Horsham
+832881,Hawkins Diner @ Burgereato Limited - Birkenhead
+832882,Hawkins @ Tennesseeland
+832883,Hawkins Diner @ Cafe India - Glasgow
+832884,Hawkins Diner @ Direct Pizza - Margate
+832885,Hawkins @ DIxy Stoke Newington
+832886,Hawkins Diner @ BunHub Burger - Chesterfield
+832887,Hawkins Diner @ Chief Chicken - Haywards Heath
+832888,Hawkins Diner @ Selekt Chicken Kensal Rise
+832889,Hawkins Diner @ The Cod Father - Upminster
+832890,Hawkins Diner @ The Greek Station - Barry
+832891,Hawkins Diner @ Guildford Kebab House - Guildford
+832893,Hawkins Diner @ School Lane Fish & Chip Shop
+832894,Hawkins Diner @ Smokin Lab - Pinner
+832895,Hawkins Diner @ Topkapi Kitchen
+832896,Hawkins Diner @ Craze Zone - long eton
+835508,Smashed @ Taco Loco - Cardiff
+835510,Wing Wing - Krispy Fried Chicken @ T'z Peri Peri - Loughton
+835512,LAFFA - Shawarma Falafel and Wraps @ T'z Peri Peri - Loughton
+835514,Little Bao Boy - Baos and Bowls @ SoBe Burger Portsmouth
+835516,BANGTAN - Korean Fried Chicken @ SoBe Burger Portsmouth
+835517,Little Bao Boy - Baos and Bowls @ Uptown Pizza - East Grinstead
+835518,LAFFA - Shawarma Falafel and Wraps @ Taco Loco - Cardiff
+835519,Smashed @ Royal Kebab Worcester
+835520,Wing Wing - Krispy Fried Chicken @ Taco Loco - Cardiff
+835521,Smashed @ T'z Peri Peri - Loughton
+835522,SoBe Burger @ SoBe Burger Portsmouth
+835523,Wing Wing - Krispy Fried Chicken @ Royal Kebab Worcester
+835524,Smashed @ Whody - Fratton (Portsmouth)
+835525,LAFFA - Shawarma Falafel and Wraps @ Royal Kebab Worcester
+835526,Wing Wing - Krispy Fried Chicken @ Whody - Fratton (Portsmouth)
+835527,SoBe Burger @ Ember Grill House
+835528,Smashed @ Roosty's Bromley
+835529,LAFFA - Shawarma Falafel and Wraps @ Whody - Fratton (Portsmouth)
+835531,LAFFA - Shawarma Falafel and Wraps @ Roosty's Bromley
+835532,Wing Wing - Krispy Fried Chicken @ Roosty's Bromley
+835533,BANGTAN - Korean Fried Chicken @ Ember Grill House
+835534,Little Bao Boy - Baos and Bowls @ Ember Grill House
+835535,Rudi's Burgers @ The Kennington Cafe - Ashford
+835536,WingDrop @ The Kennington Cafe - Ashford
+835537,Patty&Bun @ Roosters Piri Piri - Bournemouth
+835538,Smashed @ Gourmet Junction - Luton
+835539,Mikos Gyros @ The Kennington Cafe - Ashford
+835540,LAFFA - Shawarma Falafel and Wraps @ Gourmet Junction - Luton
+835541,Wing Wing - Krispy Fried Chicken @ Gourmet Junction - Luton
+835542,SoBe Burger @ Char & Chill - Forest Hill
+835543,BANGTAN - Korean Fried Chicken @ Char & Chill - Forest Hill
+835544,Little Bao Boy - Baos and Bowls @ Char & Chill - Forest Hill
+835545,Patty&Bun @ Indian Mirchi - Northampton
+835546,Rudi's Burgers @ Smok'd & Smash'd - Walsall
+835547,WingDrop @ Smok'd & Smash'd - Walsall
+835548,Mikos Gyros @ Smok'd & Smash'd - Walsall
+835549,Patty&Bun @ Frankie's Chicken & Pizza - Manchester
+835550,Mikos Gyros @ Velentino Gelato - Worcester
+835551,Rudi's Burgers @ Velentino Gelato - Worcester
+835552,WingDrop @ Velentino Gelato - Worcester
+835553,Patty&Bun @ Clifton Burgers - Clifton
+835555,Wing Wing - Krispy Fried Chicken @ BOX IT - Milton Keynes
+835556,Smashed @ BOX IT - Milton Keynes
+835557,Eat the Bird @ Quadpoint Holdings LTD (SoBe Kentish Town)
+835558,LAFFA - Shawarma Falafel and Wraps @ BOX IT - Milton Keynes
+835562,SoBe Burger @ TANZEES - GRAYS (NEW)
+835565,Eat the Bird @ Food Spot No.1 - Friern Barnet (FKA London Cooking Hubs)
+835567,Eat the Bird @ New India - Bromley (FlipnDip)
+835568,Rudi's Burgers @ Rochester Fried Chicken
+835569,Mikos Gyros @ Rochester Fried Chicken
+835570,Patty&Bun @ Cha Sha - Southampton
+835571,WingDrop @ Rochester Fried Chicken
+835573,Little Bao Boy - Baos and Bowls @ TANZEES - GRAYS (NEW)
+835574,BANGTAN - Korean Fried Chicken @ TANZEES - GRAYS (NEW)
+835575,SoBe Burger @ Big Boys Burgers - Haywards Heath
+835577,Mikos Gyros @ The Ladz Ely
+835578,Rudi's Burgers @ The Ladz Ely
+835580,WingDrop @ The Ladz Ely
+835581,Rudi's Burgers @ Memo's Grill and Fish Bar - Fareham
+835583,Eat the Bird @ Burger Shot - Fulham
+835585,Smashed @ Boopathi's Birmingham
+835586,Little Bao Boy - Baos and Bowls @ Big Boys Burgers - Haywards Heath
+835587,BANGTAN - Korean Fried Chicken @ Big Boys Burgers - Haywards Heath
+835588,Mikos Gyros @ Memo's Grill and Fish Bar - Fareham
+835589,WingDrop @ Memo's Grill and Fish Bar - Fareham
+835591,BANGTAN - Korean Fried Chicken @ PaPizza & Shakes - Bicester
+835592,Rudi's Burgers @ D'lish Northampton
+835593,SoBe Burger @ PaPizza & Shakes - Bicester
+835595,Wing Wing - Krispy Fried Chicken @ Boopathi's Birmingham
+835596,LAFFA - Shawarma Falafel and Wraps @ Boopathi's Birmingham
+835598,Patty&Bun @ Maharani Indian Takeaway - Cambridge
+835599,Little Bao Boy - Baos and Bowls @ PaPizza & Shakes - Bicester
+835600,WingDrop @ D'lish Northampton
+835601,Eat the Bird @ Dixy Chicken - Corby
+835602,Mikos Gyros @ D'lish Northampton
+835641,LAFFA - Shawarma Falafel and Wraps @ Bun n Dough - Birmingham 17/09
+835642,LAFFA - Shawarma Falafel and Wraps @ The Yellow Fisherman - Ashford 17/09
+835643,LAFFA - Shawarma Falafel and Wraps @ Ohannes Burger - Sheffield 17/09
+835644,LAFFA - Shawarma Falafel and Wraps @ Ace Chicken - Dunstable 17/09
+835646,LAFFA - Shawarma Falafel and Wraps @ Baba Tikka - Bolton 17/09
+835647,LAFFA - Shawarma Falafel and Wraps @ Gio's by La Lombarda - Aberdeen 17/09
+835649,LAFFA - Shawarma Falafel and Wraps @ Elai Salisbury 17/09
+839424,Eat the Bird @ Wraps and Wings (The Kitchen Network) - Brentford
+839425,Rudi's Burgers @ Sushi World - Lewisham
+839426,Mikos Gyros @ Burgerfan - Blackpool
+839427,Eat the Bird @ Cloud Craving Limited- Crewe
+839428,WingDrop @ Burgerfan - Blackpool
+839429,Rudi's Burgers @ Burgerfan - Blackpool
+839430,Mikos Gyros @ Sushi World - Lewisham
+839431,WingDrop @ Sushi World - Lewisham
+839432,Bun & Sum @ Stone Pizza And Grill - Sutton
+839433,Bun & Sum @ Route1 Burger & Doner Kebab - Romford
+839434,Bun & Sum @ Tasty - Oval
+839435,Rudi's Burgers @ Dreams Ltd
+839436,BANGTAN - Korean Fried Chicken @ SoBe Burger Loughton
+839438,Little Bao Boy - Baos and Bowls @ SoBe Burger Loughton
+839439,SoBe Burger @ SoBe Burger Loughton
+839441,Rudi's Burgers @ Curry Garden - Basildon
+839442,Bun & Sum @ Taste Of Milan - Aldershot
+839443,Mikos Gyros @ Curry Garden - Basildon
+839444,Rudi's Burgers @ Britz - Swindon
+839445,WingDrop @ Curry Garden - Basildon
+839446,WingDrop @ Dreams Ltd
+839447,Mikos Gyros @ Dreams Ltd
+839448,SoBe Burger @ Bad Boys Edgware
+839449,BANGTAN - Korean Fried Chicken @ Bad Boys Edgware
+839450,SoBe Burger @ Wrapchic-Colindale
+839451,Little Bao Boy - Baos and Bowls @ Wrapchic-Colindale
+839452,WingDrop @ Britz - Swindon
+839453,Bun & Sum @ Devil's Kitchen - West Reading
+839454,Mikos Gyros @ Britz - Swindon
+839455,Little Bao Boy - Baos and Bowls @ Bad Boys Edgware
+839456,BANGTAN - Korean Fried Chicken @ Wrapchic-Colindale
+839632,Rudi's Burgers @ Express Chicken and Pizza - Hove 22/09
+839633,WingDrop @ Express Chicken and Pizza - Hove 22/09
+839634,Mikos Gyros @ Express Chicken and Pizza - Hove 30/09
+841724,Rudi's Burgers @ Tasty Kebab & Pizza - Borehamwood
+841725,Little Bao Boy - Baos and Bowls @ Super Favourite - Falconwood
+841726,WingDrop @ Kilo Biriyani - Urmston
+841727,Rudi's Burgers @ Kilo Biriyani - Urmston
+841728,Bangtan - Korean Fried Chicken @ Mr Cod & Pizza - Slough
+841731,Mikos Gyros @ Kilo Biriyani - Urmston
+841734,Mikos Gyros @ Tasty Kebab & Pizza - Borehamwood
+841735,Little Bao Boy - Baos and Bowls @ Mr Cod & Pizza - Slough
+841736,SoBe Burger @ Super Favourite - Falconwood
+841737,Bangtan - Korean Fried Chicken @ Super Favourite - Falconwood
+841738,WingDrop @ Tasty Kebab & Pizza - Borehamwood
+841739,SoBe Burger @ Mr Cod & Pizza - Slough
+841740,SoBe Burger @ Rooster Shack - Godalming
+841741,Little Bao Boy - Baos and Bowls @ Rooster Shack - Godalming
+841742,Little Bao Boy - Baos and Bowls @ Chicken valley Oxted
+841743,Bangtan - Korean Fried Chicken @ Rooster Shack - Godalming
+841744,Bangtan - Korean Fried Chicken @ Chicken Valley Oxted
+841745,SoBe Burger @ SoBe Burger - Worcester
+841746,SoBe Burger @ Chicken Valley Oxted
+841748,Rudi's Burgers @ Burgereato Limited - Wigan
+841750,Mikos Gyros @ Burgereato Limited - Wigan
+841751,Rudi's Burgers @ WeDesi - Birmingham
+841753,WingDrop @ Burgereato Limited - Wigan
+841754,Smashed @ Ephesus Restaurant
+841756,Bangtan - Korean Fried Chicken @ Sobe Burger - Worcester
+841757,Little Bao Boy - Baos and Bowls @ SoBe Burger - Worcester
+841758,WingDrop @ WeDesi - Birmingham
+841759,Mikos Gyros @ WeDesi - Birmingham
+841760,Little Bao Boy - Baos and Bowls @ Food Spot No.1 - Friern Barnet (FKA London Cooking Hubs)
+841761,SoBe Burger @ Between The Buns
+841762,Bangtan - Korean Fried Chicken @ Between The Buns
+841763,Little Bao Boy - Baos and Bowls @ Between The Buns
+842047,LAFFA - Shawarma Falafel and Wraps @ Ephesus Restaurant
+843074,Hawkins Diner @ Rochester Fried Chicken
+843154,Hawkins Diner @ The Ladz Ely
+843155,Hawkins Diner @ Chicken Lover - Queensbury
+843156,Hawkins Diner @ WeDesi - Birmingham
+843158,Hawkins Diner @ The Kennington Cafe - Ashford
+843159,Hawkins Diner @ D'lish Northampton
+843161,Hawkins Diner @ Tasty Kebab & Pizza - Borehamwood
+843163,Hawkins Diner @ Hook Line & Fryer - Cheltenham
+843165,Hawkins Diner @ Dreams ltd - Hounslow
+843166,Hawkins Diner @ Smok'd & Smash'd - Walsall
+843167,Hawkins Diner @ Rancho Express - Portsmouth
+843168,Hawkins Diner @ Zaitoon - Upton Park
+843169,Hawkins Diner @ Perfect Chicken - Peckham
+843170,Hawkins Diner @ Curry Garden - Basildon
+843171,Hawkins Diner @ Britz - Swindon
+843172,Hawkins Diner @ Burgerfan - Blackpool
+843173,Hawkins Diner @ Sushi World - Lewisham
+843174,Hawkins Diner @ Cilfynydd Pizza & Burger - Pontypridd
+843175,Hawkins Diner @ Kilo Biriyani - Urmston
+843176,Hawkins Diner @ Samir’s - Kingston
+843700,BANGTAN - Korean Fried Chicken @ Mani's Food Bar
+843701,Rudi's Burgers @ Walli’s Chicken®-Colindale
+843703,Little Bao Boy - Baos and Bowls @ Mani's Food Bar
+843704,SoBe Burger @ Mani's Food Bar
+843705,Rudi's Burgers @ Cilfynydd Pizza & Burger - Pontypridd
+843706,WingDrop @ Cilfynydd Pizza & Burger - Pontypridd
+843709,Rudi's Burgers @ Chicken Lover - Queensbury
+843710,Mikos Gyros @ Cilfynydd Pizza & Burger - Pontypridd
+843711,WingDrop @ Walli’s Chicken®-Colindale
+843712,Smashed @ Cottons Caribbean
+843713,Rudi's Burgers @ Mishtidesh - Small Heath 15/10
+843714,WingDrop @ Mishtidesh - Small Heath 15/10
+843716,LAFFA - Shawarma Falafel and Wraps @ Cottons Caribbean
+843717,Mikos Gyros @ Walli’s Chicken®-Colindale
+843718,WingDrop @ Chicken Lover - Queensbury 15/10
+843719,Mikos Gyros @ Chicken Lover - Queensbury
+843720,Little Bao Boy - Baos and Bowls @ Masala Lab
+843721,SoBe Burger @ Masala Lab
+843722,Little Bao Boy - Baos and Bowls @ Flame & Ice - Gloucester
+843725,Little Bao Boy - Baos and Bowls @ Arfy's - Altrincham
+843726,BANGTAN - Korean Fried Chicken @ Masala Lab
+843727,Seoul Chikin @ Karak Chaii - Leamington Spa
+843728,BANGTAN - Korean Fried Chicken @ Arfy's - Altrincham
+843729,SoBe Burger @ Arfy's - Altrincham
+843730,SoBe Burger @ Nashville Smash - Heywood
+843731,Little Bao Boy - Baos and Bowls @ Nashville Smash - Heywood
+843732,BANGTAN - Korean Fried Chicken @ Nashville Smash - Heywood
+843733,BANGTAN - Korean Fried Chicken @ Flame & Ice - Gloucester
+843734,SoBe Burger @ Flame & Ice - Gloucester
+843735,Smashed @ Hoops Cafe Bar - Dover
+843736,WingDrop @ Vanilla Lounge - Cardiff
+843737,Smashed @ Fireaway Pizza Plumbstead Rd - Norwich
+843740,Smashed @ Rasiga - New Malden
+843741,Wing Wing - Krispy Fried Chicken @ Fireaway Pizza Plumbstead Rd - Norwich
+843742,LAFFA - Shawarma Falafel and Wraps @ Hoops Cafe Bar - Dover
+843743,Seoul Chikin @ Nonnos Pizza - Wood Green/ Crouch End
+843744,LAFFA - Shawarma Falafel and Wraps @ Rasiga - New Malden
+843745,Seoul Chikin @ St Johns Fish and Chips and Chinese - Swindon
+843746,LAFFA - Shawarma Falafel and Wraps @ Fireaway Pizza Plumbstead Rd - Norwich
+843747,Mikos Gyros @ Vanilla Lounge - Cardiff
+843748,Rudi's Burgers @ Vanilla Lounge - Cardiff
+843749,Seoul Chikin @ Tasty - Oval
+843750,Seoul Chikin @ Steak Out - Coventry
+843751,BANGTAN - Korean Fried Chicken @ Munch4less - Lasani Grill- Newcastle
+843752,Seoul Chikin @ La Farina - Wimbledon
+843755,SoBe Burger @ Munch4less - Lasani Grill- Newcastle
+843756,Little Bao Boy - Baos and Bowls @ Munch4less - Lasani Grill- Newcastle
+844469,Mikos Gyros @ Mishtidesh - Small Heath 20/10
+846587,Smashed @ Chilli Spice - Camberley
+846589,Hawkins Diner @ Rikshaw indian restaurant - Norwood
+846590,WingDrop @ Rikshaw indian restaurant - Norwood
+846592,Mikos Gyros @ Phat Bite - Gravesend
+846593,LAFFA - Shawarma Falafel and Wraps @ Chilli Spice - Camberley
+846594,Mikos Gyros @ Rikshaw indian restaurant - Norwood
+846595,Rudi's Burgers @ Phat Bite - Gravesend
+846596,Hot Bird @ Chilli Spice - Camberley
+846597,Rudi's Burgers @ Rikshaw indian restaurant - Norwood
+846598,Hawkins Diner @ joys chicken - Milton keynes 26/10
+846599,WingDrop @ Phat Bite - Gravesend
+846600,Hawkins Diner @ Phat Bite - Gravesend
+846601,SoBe Burger @ JUST CHICKEN - Burton
+846602,Seoul Chikin @ SoBe Burger Norwich (New)
+846603,Hawkins Diner @ Phat Bite
+846606,Little Bao Boy - Baos and Bowls @ JUST CHICKEN - Burton
+846607,BANGTAN - Korean Fried Chicken @ JUST CHICKEN - Burton
+846609,Hawkins Diner @ Velentino Gelato - Worcester
+846610,LAFFA - Shawarma Falafel and Wraps @ Herbies Pizza - Uxbridge
+846611,Hot Bird @ Herbies Pizza - Uxbridge
+846612,Smashed @ Herbies Pizza - Uxbridge
+846613,BANGTAN - Korean Fried Chicken @ Kings Castle - Bolton
+846614,SoBe Burger @ Kings Castle - Bolton
+846615,WingDrop @ Phat Bite
+846616,Rudi's Burgers @ Phat Bite
+846617,Mikos Gyros @ Phat Bite
+846618,WingDrop @ British Fried Chicken -Beckenham
+846619,Little Bao Boy - Baos and Bowls @ Kings Castle - Bolton
+846620,Mikos Gyros @ British Fried Chicken -Beckenham
+846621,BANGTAN - Korean Fried Chicken @ Ise Food Court - Kettering
+846622,SoBe Burger @ Ise Food Court - Kettering
+846623,Hawkins Diner @ Vanilla Lounge - Cardiff
+846624,Rudi's Burgers @ British Fried Chicken -Beckenham
+846625,Hawkins Diner @ Burgereato Limited - Wigan
+846626,Hawkins Diner @ British Fried Chicken -Beckenham
+846627,Little Bao Boy - Baos and Bowls @ Ise Food Court - Kettering
+846628,WingDrop @ Chai Rista - Birmingham
+846629,Seoul Chikin @ SoBe Burger - Walthamstow
+846631,Hawkins Diner @ Chai Rista - Birmingham
+846632,Mikos Gyros @ Chai Rista - Birmingham
+846633,Mikos Gyros @ Pizza Go Go - Gloucester
+846637,Rudi's Burgers @ Chai Rista - Birmingham
+846638,WingDrop @ Pizza Go Go - Gloucester
+846639,Hawkins Diner @ Pizza Go Go - Gloucester
+846640,Rudi's Burgers @ Pizza Go Go - Gloucester
+847262,Rudi's Burgers @ Phat Bite - Gravesend 28/10
+847269,Hawkins Diner @ Express Chicken and Pizza - Hove
